@@ -3,17 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Broadmoor Hat Co — Website Overhaul Prototype</title>
+          <a href="#concierge">Concierge Survey</a>
+          <a href="#designer">Hat Designer</a>
+          <a href="#events">Events</a>
+              <a class="btn btn-primary" href="#concierge">Start Concierge Survey</a>
+              <a class="btn btn-secondary" href="#designer">Open Hat Designer</a>
+      <section class="section alt" id="concierge">
+        <div class="container">
+          <p class="eyebrow inverse">Custom Hat Concierge</p>
+          <h2>Start with inspiration. We translate your style into a hat direction.</h2>
+          <p class="section-intro alt-copy">
+            Inspired by our premium survey flow, this concierge format mirrors an in-studio discovery session: color,
+            shape, character, and occasion. Complete it before your fitting so our artisans can pre-style your direction.
+          </p>
+
+          <div class="steps-grid">
+            <article class="card dark-card">
+              <h3>1) Color</h3>
+              <div class="chip-row">
+                <span class="chip">Black</span>
+                <span class="chip">Chocolate</span>
+                <span class="chip">Silverbelly</span>
+                <span class="chip">Sand</span>
+                <span class="chip">Rust</span>
+                <span class="chip">Not Sure</span>
+              </div>
+            </article>
+            <article class="card dark-card">
+              <h3>2) Shape & Structure</h3>
+              <div class="chip-row">
+                <span class="chip">Classic Western Crown</span>
+                <span class="chip">Teardrop</span>
+                <span class="chip">Pinch Front</span>
+                <span class="chip">Flat Brim</span>
+                <span class="chip">Traditional Curve</span>
+                <span class="chip">Wide Statement</span>
+              </div>
+            </article>
+            <article class="card dark-card">
+              <h3>3) Character & Detail</h3>
+              <div class="chip-row">
+                <span class="chip">Simple Ribbon</span>
+                <span class="chip">Leather Band</span>
+                <span class="chip">Braided Leather</span>
+                <span class="chip">Feather Accent</span>
+                <span class="chip">Heritage / Legacy</span>
+                <span class="chip">Bold Statement</span>
+              </div>
+            </article>
+            <article class="card dark-card">
+              <h3>4) Occasion</h3>
+              <div class="chip-row">
+                <span class="chip">Everyday</span>
+                <span class="chip">Wedding</span>
+                <span class="chip">Ranch / Outdoor</span>
+                <span class="chip">Event / Party</span>
+                <span class="chip">Gift</span>
+                <span class="chip">Photoshoot</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="recommendation-card">
+            <div>
+              <p class="eyebrow inverse">Your Recommendation</p>
+              <h3>The Heritage Classic</h3>
+              <p>
+                A refined western silhouette with authentic ranch character: classic crown, medium traditional brim,
+                leather band, and versatile dark-earth palette.
+              </p>
+            </div>
+            <div class="score">Match 92%</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="designer">
+        <div class="container">
+          <h2>Maintain Your Build: Live Hat Designer 2.0</h2>
+          <p class="section-intro">
+            Your existing hat designer remains fully available. Use it to configure crown, brim, band, palette, and fit
+            in real time, then save your build code for your Broadmoor fitting.
+          </p>
+          <div class="designer-actions">
+            <a class="btn btn-primary" href="../hat-finder-2.0/">Launch Full Designer</a>
+            <a class="btn btn-ghost" href="#appointments">Book with Build Code</a>
+          </div>
+          <div class="designer-frame-wrap">
+            <iframe
+              title="Broadmoor Hat Finder 2.0"
+              src="../hat-finder-2.0/"
+              loading="lazy"
+              class="designer-frame"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+            <article class="card">
+      content="custom hat maker Colorado Springs, cowboy hats Colorado Springs CO, western hats Colorado, handcrafted hats, hat bar events"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-row">
-        <a class="brand" href="#">Broadmoor Hat Co</a>
+        <a class="brand" href="#top" aria-label="Broadmoor Hat Co home">Broadmoor Hat Co</a>
         <nav aria-label="Primary" class="primary-nav">
           <a href="#shop">Shop</a>
           <a href="#custom">Custom Hats</a>
-          <a href="#events">Events</a>
+          <a href="#events">Hat Bar Events</a>
           <a href="#appointments">Appointments</a>
           <a href="#about">About</a>
           <a href="#faq">FAQ</a>
@@ -22,54 +121,70 @@
       </div>
     </header>
 
-    <main>
+    <main id="top">
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <p class="eyebrow">Colorado Springs • Handcrafted</p>
-            <h1>Custom hats shaped for your style, story, and occasion.</h1>
-            <p>
-              Build your look in-store, book a hat bar for your event, or shop ready-to-wear styles curated by our artisans.
+            <p class="eyebrow">Colorado Springs, CO • Handcrafted Western Style</p>
+            <h1>Colorado Springs custom cowboy hats built for legacy, style, and fit.</h1>
+            <p class="lead">
+              Broadmoor Hat Co is the trusted custom hat maker in Colorado Springs for handcrafted cowboy hats,
+              western fashion hats, and elevated event experiences. From first fitting to final flame finish, our
+              artisans shape every detail for a hat that feels distinctly yours.
             </p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#appointments">Book Hat Appointment</a>
-              <a class="btn btn-secondary" href="#events">Book Event</a>
-              <a class="btn btn-ghost" href="#shop">Shop Ready-to-Wear</a>
+              <a class="btn btn-secondary" href="#events">Plan a Hat Bar Event</a>
+              <a class="btn btn-ghost" href="#shop">Shop Cowboy Hats</a>
             </div>
             <ul class="hero-proof">
-              <li>3,200+ hats shaped</li>
-              <li>4.9 ★ average rating</li>
-              <li>250+ private & corporate events</li>
+              <li>3,200+ handcrafted hats shaped in Colorado Springs</li>
+              <li>4.9 ★ local customer rating across custom and event services</li>
+              <li>250+ private, wedding, and corporate hat bar experiences</li>
             </ul>
           </div>
           <aside class="hero-card">
-            <h2>How It Works</h2>
+            <h2>Your Custom Hat Journey</h2>
             <ol>
-              <li>Choose your experience: in-shop, event, or ready-to-wear.</li>
-              <li>Select crown, brim, and finish details with artisan guidance.</li>
-              <li>Approve your build and pick up or ship your finished hat.</li>
+              <li>Book your fit session with a Colorado Springs hat specialist.</li>
+              <li>Pick crown profile, brim shape, felt or straw, and personalized trims.</li>
+              <li>Watch the final shaping process and leave with a signature cowboy hat.</li>
             </ol>
+            <p class="meta">Most custom builds are completed in 2–3 weeks with local pickup available.</p>
           </aside>
         </div>
       </section>
 
       <section class="section" id="custom">
         <div class="container">
-          <h2>Choose Your Experience</h2>
+          <h2>Professional Hat Services for Every Occasion</h2>
+          <p class="section-intro">
+            Whether you need a statement western hat for downtown Colorado Springs, a timeless custom cowboy hat for
+            ranch weekends, or a full guest activation, we deliver premium craftsmanship and polished service.
+          </p>
           <div class="cards three-up">
             <article class="card">
-              <h3>In-Shop Custom</h3>
-              <p>One-on-one fitting and styling with transparent package pricing.</p>
+              <h3>In-Shop Custom Cowboy Hats</h3>
+              <p>
+                One-on-one fitting, artisan consultation, and precision shaping for a hat built around your face,
+                wardrobe, and lifestyle.
+              </p>
               <p class="meta">Starts at $420 • 60-minute appointment</p>
             </article>
             <article class="card" id="events">
-              <h3>Event Hat Bar</h3>
-              <p>On-site artisan team for weddings, activations, and VIP events.</p>
+              <h3>Colorado Springs Hat Bar Events</h3>
+              <p>
+                Interactive hat customization for weddings, luxury parties, and brand activations with on-site
+                artisans and curated trim menus.
+              </p>
               <p class="meta">Event packages from $1,950</p>
             </article>
             <article class="card" id="shop">
-              <h3>Ready-to-Wear</h3>
-              <p>Signature silhouettes with fast shipping and easy exchanges.</p>
+              <h3>Ready-to-Wear Western Hats</h3>
+              <p>
+                Shop best-selling cowboy hats and western staples with quick shipping, easy exchanges, and local
+                pickup options.
+              </p>
               <p class="meta">Best sellers available now</p>
             </article>
           </div>
@@ -78,7 +193,7 @@
 
       <section class="section alt" id="events-pricing">
         <div class="container">
-          <h2>Event Packages at a Glance</h2>
+          <h2>Hat Bar Event Packages in Colorado Springs</h2>
           <div class="table-wrap" role="region" aria-label="Event package table">
             <table>
               <thead>
@@ -91,63 +206,43 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Signature</td>
-                  <td>Weddings & private parties</td>
-                  <td>1 artisan, 2-hour service, 20 guests</td>
-                  <td>$1,950</td>
-                </tr>
-                <tr>
-                  <td>Brand Experience</td>
-                  <td>Corporate and activations</td>
-                  <td>2 artisans, branded trims, 40 guests</td>
-                  <td>$3,800</td>
-                </tr>
-                <tr>
-                  <td>Full Production</td>
-                  <td>Large festivals & VIP</td>
-                  <td>4 artisans, premium menu, 80 guests</td>
-                  <td>$7,250</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <a class="btn btn-primary" href="#contact">Start Event Inquiry</a>
-        </div>
-      </section>
-
-      <section class="section" id="appointments">
         <div class="container two-col">
           <div>
-            <h2>Appointment Flow Prototype</h2>
-            <ul>
-              <li>Pre-qualifier: style goal, material tier, and budget range.</li>
-              <li>Transparent estimate range + turnaround shown before booking.</li>
-              <li>Deposit checkout integrated in booking handoff.</li>
-            </ul>
-            <a class="btn btn-secondary" href="../hat-finder-2.0/">Open Hat Finder 2.0</a>
+            <h3>Send Your Hat Profile</h3>
+            <label>Occasion / Timeline <input type="text" placeholder="Wedding, ranch season, event" /></label>
+            <label>Anything else? <input type="text" placeholder="Style notes, inspirations, references" /></label>
+            <button type="button" class="btn btn-primary">Send My Hat Profile</button>
+            </p>
+            <p>
+              Our team serves Colorado Springs, Monument, Castle Rock, and visiting destination clients seeking
+              high-quality cowboy hats made with intentional fit, balanced proportion, and durable finishing.
+            </p>
           </div>
-          <div class="card highlight">
-            <h3>Sample Estimate</h3>
-            <p>Premium wool + leather band + custom shaping</p>
-            <p class="meta">$495–$560 • 2–3 weeks</p>
+          <div class="card">
+            <h3>Client Highlights</h3>
+            <ul class="clean-list">
+              <li>"Best custom cowboy hat experience in Colorado Springs."</li>
+              <li>"Our wedding hat bar was the most talked-about feature of the night."</li>
+              <li>"Professional fit, exceptional style guidance, and top-tier quality."</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="section alt" id="faq">
+      <section class="section" id="faq">
         <div class="container">
-          <h2>FAQ</h2>
+          <h2>Frequently Asked Questions</h2>
           <details>
-            <summary>How far in advance should I book an event?</summary>
-            <p>We recommend booking 4–8 weeks in advance for best date availability.</p>
+            <summary>How far in advance should I book a custom cowboy hat appointment?</summary>
+            <p>For best availability in Colorado Springs, we recommend booking 1–2 weeks in advance.</p>
           </details>
           <details>
-            <summary>Do you offer shipping for custom hats?</summary>
-            <p>Yes, we ship nationwide with care instructions and fit adjustment guidance.</p>
+            <summary>Do you ship custom hats outside Colorado?</summary>
+            <p>Yes. We ship nationwide with fit support, care instructions, and secure packaging.</p>
           </details>
           <details>
-            <summary>Can I re-order a saved build?</summary>
-            <p>Yes. Bring your build code from Hat Finder 2.0 and our team can recreate it.</p>
+            <summary>Can your team travel for hat bar events outside Colorado Springs, CO?</summary>
+            <p>Absolutely. We offer regional and destination event services with custom package options.</p>
           </details>
         </div>
       </section>
@@ -155,8 +250,8 @@
       <section class="section" id="contact">
         <div class="container two-col">
           <div>
-            <h2>Visit Broadmoor Hat Co</h2>
-            <p>Colorado Springs, CO</p>
+            <h2>Visit the Leading Cowboy Hat Shop in Colorado Springs, CO</h2>
+            <p>Broadmoor Hat Co • Colorado Springs, CO</p>
             <p>Mon–Sat: 10:00 AM–6:00 PM • Sun: 11:00 AM–4:00 PM</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#appointments">Book Appointment</a>
@@ -165,7 +260,7 @@
             </div>
           </div>
           <form class="card form-grid" aria-label="Lead capture form">
-            <h3>Start Your Project</h3>
+            <h3>Start Your Custom Hat Project</h3>
             <label>Name <input type="text" placeholder="Full name" /></label>
             <label>Email <input type="email" placeholder="you@example.com" /></label>
             <label>Event Date <input type="date" /></label>
@@ -178,8 +273,9 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container">
+      <div class="container footer-row">
         <p>© 2026 Broadmoor Hat Co. All rights reserved.</p>
+        <p class="meta">Custom Hat Maker • Cowboy Hats • Colorado Springs CO</p>
       </div>
     </footer>
 
