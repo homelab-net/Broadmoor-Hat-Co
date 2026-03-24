@@ -4,13 +4,18 @@ This is a standalone prototype for the Broadmoor Hat Co overhaul request.
 
 ## What it demonstrates
 - Multi-step style quiz that maps user answers into default part recommendations.
+- Progressive disclosure entry modes:
+  - Simple mode for quick recommendation capture.
+  - Advanced mode for users that want deeper configuration control.
 - Modular designer using preconfigured hat piece-parts:
   - Crown
   - Brim
   - Band
-- Compatibility rules (example blocked combination handling).
+- Compatibility rules with graceful fallback messaging.
+- Top-3 ranked look recommendations generated from quiz style affinity tags.
+- Dynamic build code, estimated price, and turnaround generation.
+- "Save My Build" behavior via localStorage to support appointment handoff.
 - Single-asset style approach with color changed through filter logic (prototype approximation).
-- Dynamic build code and estimated price generation.
 
 ## Run locally
 From repository root:

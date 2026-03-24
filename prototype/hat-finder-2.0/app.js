@@ -1,24 +1,29 @@
 const catalog = {
   crowns: [
-    { id: 'cattleman', label: 'Cattleman', shapeTags: ['classic', 'western'], priceMod: 40, height: 'mid' },
-    { id: 'teardrop', label: 'Teardrop', shapeTags: ['modern', 'sleek'], priceMod: 60, height: 'mid' },
-    { id: 'pinch-front', label: 'Pinch Front', shapeTags: ['dressy', 'bold'], priceMod: 80, height: 'high' },
+    { id: 'cattleman', label: 'Cattleman', shapeTags: ['classic', 'western'], priceMod: 40, turnaroundModDays: 1, height: 'mid' },
+    { id: 'teardrop', label: 'Teardrop', shapeTags: ['modern', 'sleek'], priceMod: 60, turnaroundModDays: 2, height: 'mid' },
+    { id: 'pinch-front', label: 'Pinch Front', shapeTags: ['dressy', 'bold'], priceMod: 80, turnaroundModDays: 3, height: 'high' },
   ],
   brims: [
-    { id: 'four-flat', label: '4” Flat', shapeTags: ['classic', 'bold'], priceMod: 30, width: 4 },
-    { id: 'three-quarter-curve', label: '3.75” Curve', shapeTags: ['versatile'], priceMod: 20, width: 3.75 },
-    { id: 'three-curved', label: '3” Traditional Curve', shapeTags: ['dressy'], priceMod: 10, width: 3 },
+    { id: 'four-flat', label: '4” Flat', shapeTags: ['classic', 'bold'], priceMod: 30, turnaroundModDays: 1, width: 4 },
+    { id: 'three-quarter-curve', label: '3.75” Curve', shapeTags: ['versatile', 'modern'], priceMod: 20, turnaroundModDays: 1, width: 3.75 },
+    { id: 'three-curved', label: '3” Traditional Curve', shapeTags: ['dressy'], priceMod: 10, turnaroundModDays: 0, width: 3 },
   ],
   bands: [
-    { id: 'grosgrain', label: 'Grosgrain Ribbon', priceMod: 10 },
-    { id: 'leather', label: 'Leather Band', priceMod: 25 },
-    { id: 'braided', label: 'Braided Band', priceMod: 35 },
+    { id: 'grosgrain', label: 'Grosgrain Ribbon', shapeTags: ['classic'], priceMod: 10, turnaroundModDays: 0 },
+    { id: 'leather', label: 'Leather Band', shapeTags: ['rugged', 'modern'], priceMod: 25, turnaroundModDays: 1 },
+    { id: 'braided', label: 'Braided Band', shapeTags: ['bold', 'western'], priceMod: 35, turnaroundModDays: 1 },
   ],
   palettes: [
     { id: 'sand', label: 'Sand', color: '#c9b08b' },
     { id: 'charcoal', label: 'Charcoal', color: '#4a4a4f' },
     { id: 'sage', label: 'Sage', color: '#98a38d' },
     { id: 'rust', label: 'Rust', color: '#9f5a41' },
+  ],
+  fits: [
+    { id: 'standard', label: 'Standard (22.5")', turnaroundModDays: 0 },
+    { id: 'snug', label: 'Snug (22")', turnaroundModDays: 1 },
+    { id: 'roomy', label: 'Roomy (23")', turnaroundModDays: 1 },
   ],
 };
 
@@ -34,42 +39,100 @@ const quiz = [
   { id: 'occasion', question: 'What are you wearing this for?', options: ['Daily Wear', 'Special Event', 'Wedding', 'Brand Activation'] },
 ];
 
+const styleAffinity = {
+  Classic: ['classic', 'western'],
+  Bold: ['bold'],
+  Modern: ['modern', 'sleek'],
+  Dressy: ['dressy'],
+};
+
 const state = {
   step: 0,
+  mode: 'simple',
   answers: {},
   selected: {
     crownId: 'cattleman',
     brimId: 'three-quarter-curve',
     bandId: 'grosgrain',
     paletteId: 'sand',
+    fitId: 'standard',
   },
+  recommendations: [],
+  compatibilityMessage: '',
 };
 
 const el = {
   quizStep: document.getElementById('quizStep'),
   prevBtn: document.getElementById('prevBtn'),
   nextBtn: document.getElementById('nextBtn'),
+  simpleModeBtn: document.getElementById('simpleModeBtn'),
+  advancedModeBtn: document.getElementById('advancedModeBtn'),
   crownSelect: document.getElementById('crownSelect'),
   brimSelect: document.getElementById('brimSelect'),
   bandSelect: document.getElementById('bandSelect'),
   colorSelect: document.getElementById('colorSelect'),
+  fitSelect: document.getElementById('fitSelect'),
   layerBrim: document.getElementById('layerBrim'),
   layerCrown: document.getElementById('layerCrown'),
   layerBand: document.getElementById('layerBand'),
   buildCode: document.getElementById('buildCode'),
   buildSummary: document.getElementById('buildSummary'),
   buildPrice: document.getElementById('buildPrice'),
+  buildTurnaround: document.getElementById('buildTurnaround'),
+  compatibilityMessage: document.getElementById('compatibilityMessage'),
+  saveBuildBtn: document.getElementById('saveBuildBtn'),
+  savedBuildMessage: document.getElementById('savedBuildMessage'),
+  recommendationsList: document.getElementById('recommendationsList'),
 };
 
 function init() {
   wireQuizButtons();
+  wireModeButtons();
+  wireSaveBuild();
   populateSelect(el.crownSelect, catalog.crowns, 'crownId');
   populateSelect(el.brimSelect, catalog.brims, 'brimId');
   populateSelect(el.bandSelect, catalog.bands, 'bandId');
   populateSelect(el.colorSelect, catalog.palettes, 'paletteId');
+  populateSelect(el.fitSelect, catalog.fits, 'fitId');
   renderQuizStep();
   applyQuizRecommendation();
   renderPreview();
+}
+
+function wireModeButtons() {
+  el.simpleModeBtn.addEventListener('click', () => {
+    state.mode = 'simple';
+    el.simpleModeBtn.classList.add('active');
+    el.advancedModeBtn.classList.remove('active');
+    state.step = 0;
+    renderQuizStep();
+  });
+
+  el.advancedModeBtn.addEventListener('click', () => {
+    state.mode = 'advanced';
+    el.advancedModeBtn.classList.add('active');
+    el.simpleModeBtn.classList.remove('active');
+    state.step = 0;
+    renderQuizStep();
+  });
+}
+
+function wireSaveBuild() {
+  el.saveBuildBtn.addEventListener('click', () => {
+    const snapshot = {
+      ...state.selected,
+      code: buildCode(
+        state.selected.crownId,
+        state.selected.brimId,
+        state.selected.bandId,
+        state.selected.paletteId,
+      ),
+      timestamp: new Date().toISOString(),
+    };
+
+    localStorage.setItem('bhcSavedBuild', JSON.stringify(snapshot));
+    el.savedBuildMessage.textContent = `Saved build ${snapshot.code}. Bring this code to your appointment.`;
+  });
 }
 
 function wireQuizButtons() {
@@ -120,20 +183,31 @@ function applyQuizRecommendation() {
     state.selected.crownId = 'pinch-front';
     state.selected.brimId = 'three-curved';
     state.selected.bandId = 'braided';
+    state.selected.paletteId = 'rust';
   }
   if (shape === 'Classic') {
     state.selected.crownId = 'cattleman';
     state.selected.brimId = 'four-flat';
     state.selected.bandId = 'grosgrain';
+    state.selected.paletteId = 'sand';
   }
   if (shape === 'Modern') {
     state.selected.crownId = 'teardrop';
     state.selected.brimId = 'three-quarter-curve';
     state.selected.bandId = 'leather';
+    state.selected.paletteId = 'charcoal';
+  }
+  if (shape === 'Dressy') {
+    state.selected.crownId = 'pinch-front';
+    state.selected.brimId = 'three-curved';
+    state.selected.bandId = 'grosgrain';
+    state.selected.paletteId = 'sage';
   }
 
   enforceCompatibility();
   syncSelects();
+  rankRecommendations();
+  renderRecommendations();
 }
 
 function populateSelect(select, items, stateKey) {
@@ -153,6 +227,7 @@ function syncSelects() {
   el.brimSelect.value = state.selected.brimId;
   el.bandSelect.value = state.selected.bandId;
   el.colorSelect.value = state.selected.paletteId;
+  el.fitSelect.value = state.selected.fitId;
 }
 
 function enforceCompatibility() {
@@ -161,7 +236,83 @@ function enforceCompatibility() {
 
   if (blocked) {
     state.selected.brimId = 'three-quarter-curve';
+    state.compatibilityMessage = 'We swapped your brim to 3.75” Curve for best structure and style balance.';
+  } else {
+    state.compatibilityMessage = '';
   }
+
+  el.compatibilityMessage.textContent = state.compatibilityMessage;
+}
+
+function rankRecommendations() {
+  const preferredTags = styleAffinity[state.answers.shape] ?? ['classic'];
+  const rankedLooks = [];
+
+  catalog.crowns.forEach((crown) => {
+    catalog.brims.forEach((brim) => {
+      catalog.bands.forEach((band) => {
+        const isBlocked = compatibility.blocked.some(([blockedCrown, blockedBrim]) => blockedCrown === crown.id && blockedBrim === brim.id);
+        if (isBlocked) {
+          return;
+        }
+
+        const allTags = [...crown.shapeTags, ...brim.shapeTags, ...band.shapeTags];
+        const score = preferredTags.reduce((total, tag) => total + (allTags.includes(tag) ? 1 : 0), 0);
+
+        rankedLooks.push({
+          crownId: crown.id,
+          brimId: brim.id,
+          bandId: band.id,
+          score,
+        });
+      });
+    });
+  });
+
+  state.recommendations = rankedLooks
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((look, index) => ({
+      ...look,
+      paletteId: catalog.palettes[index % catalog.palettes.length].id,
+    }));
+}
+
+function renderRecommendations() {
+  if (!state.recommendations.length) {
+    el.recommendationsList.innerHTML = '<p class="muted">Complete the quiz to see recommendations.</p>';
+    return;
+  }
+
+  el.recommendationsList.innerHTML = state.recommendations
+    .map((rec, index) => {
+      const crown = getSelectedPart('crowns', rec.crownId);
+      const brim = getSelectedPart('brims', rec.brimId);
+      const band = getSelectedPart('bands', rec.bandId);
+      const palette = getSelectedPart('palettes', rec.paletteId);
+
+      return `
+      <button type="button" class="recommendation-card" data-index="${index}">
+        <strong>Look ${index + 1}</strong>
+        <span>${crown.label} / ${brim.label} / ${band.label}</span>
+        <small>${palette.label} palette • Match score ${rec.score}</small>
+      </button>
+    `;
+    })
+    .join('');
+
+  el.recommendationsList.querySelectorAll('.recommendation-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const selectedRec = state.recommendations[Number(card.dataset.index)];
+      state.selected.crownId = selectedRec.crownId;
+      state.selected.brimId = selectedRec.brimId;
+      state.selected.bandId = selectedRec.bandId;
+      state.selected.paletteId = selectedRec.paletteId;
+      enforceCompatibility();
+      syncSelects();
+      renderPreview();
+    });
+  });
 }
 
 function getSelectedPart(type, id) {
@@ -173,6 +324,7 @@ function renderPreview() {
   const brim = getSelectedPart('brims', state.selected.brimId);
   const band = getSelectedPart('bands', state.selected.bandId);
   const palette = getSelectedPart('palettes', state.selected.paletteId);
+  const fit = getSelectedPart('fits', state.selected.fitId);
 
   const tintFilter = buildCssFilter(palette.color);
   el.layerBrim.innerHTML = brimSvg(tintFilter);
@@ -181,16 +333,16 @@ function renderPreview() {
 
   const base = 420;
   const total = base + crown.priceMod + brim.priceMod + band.priceMod;
+  const turnaroundDays = 10 + crown.turnaroundModDays + brim.turnaroundModDays + band.turnaroundModDays + fit.turnaroundModDays;
   const code = buildCode(crown.id, brim.id, band.id, palette.id);
 
   el.buildCode.textContent = `Build Code: ${code}`;
   el.buildSummary.textContent = `${crown.label} crown + ${brim.label} brim + ${band.label} in ${palette.label}`;
   el.buildPrice.textContent = `Estimated Starting Price: $${total}`;
+  el.buildTurnaround.textContent = `Estimated Turnaround: ${turnaroundDays}-${turnaroundDays + 3} business days`;
 }
 
 function buildCssFilter(hex) {
-  // This prototype uses a simple hue-rotate + saturate filter approximation.
-  // Production should use per-part masks with calibrated HSL transforms.
   const map = {
     '#c9b08b': 'sepia(18%) saturate(95%) hue-rotate(350deg)',
     '#4a4a4f': 'grayscale(20%) brightness(0.6)',
