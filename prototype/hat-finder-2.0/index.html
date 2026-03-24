@@ -3,61 +3,113 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Broadmoor Hat Co — Hat Finder 2.0 Prototype</title>
+    <title>Broadmoor Hat Co — Hat Finder 2.0</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="topbar">
-      <h1>Hat Finder 2.0 Prototype</h1>
-      <p>Quiz + modular piece-part designer (crown / brim / band)</p>
+      <div class="topbar-inner">
+        <div class="topbar-brand">
+          <h1>Hat Finder 2.0</h1>
+          <p>Design your custom Broadmoor hat</p>
+        </div>
+        <button id="shareBtn" class="btn-share" type="button">Share Build</button>
+      </div>
+      <div id="shareToast" class="share-toast" hidden>Link copied to clipboard!</div>
     </header>
 
+    <nav class="mode-tabs" role="tablist">
+      <button class="tab active" data-mode="quiz" role="tab" aria-selected="true">Style Quiz</button>
+      <button class="tab" data-mode="builder" role="tab" aria-selected="false">Jump to Builder</button>
+    </nav>
+
     <main class="layout">
-      <section class="panel" id="quizPanel">
-        <h2>Style Quiz</h2>
-        <div id="quizStep" class="quiz-step"></div>
-        <div class="quiz-actions">
-          <button id="prevBtn" type="button">Back</button>
-          <button id="nextBtn" type="button">Next</button>
+      <!-- Left panel: quiz or builder controls -->
+      <section class="panel" id="leftPanel">
+
+        <!-- QUIZ MODE -->
+        <div id="quizSection">
+          <h2>Style Quiz</h2>
+          <div class="quiz-progress-wrap">
+            <div class="quiz-progress-track">
+              <div id="quizProgressBar" class="quiz-progress-fill"></div>
+            </div>
+            <span id="quizProgressLabel" class="quiz-progress-label">Step 1 of 5</span>
+          </div>
+          <div id="quizStep" class="quiz-step"></div>
+          <div class="quiz-actions">
+            <button id="prevBtn" type="button" class="btn-outline">Back</button>
+            <button id="nextBtn" type="button" class="btn-primary">Next</button>
+          </div>
+        </div>
+
+        <!-- BUILDER MODE -->
+        <div id="builderSection" hidden>
+          <h2>Configure Your Hat</h2>
+          <form id="builderForm" class="controls" autocomplete="off">
+            <label class="control-label">
+              Crown Style
+              <select id="crownSelect"></select>
+            </label>
+            <label class="control-label">
+              Brim Style
+              <select id="brimStyleSelect"></select>
+            </label>
+            <label class="control-label">
+              Brim Edge
+              <select id="brimEdgeSelect"></select>
+            </label>
+            <label class="control-label">
+              Band
+              <select id="bandSelect"></select>
+            </label>
+            <label class="control-label">
+              Material
+              <select id="materialSelect"></select>
+            </label>
+          </form>
+
+          <div class="color-section">
+            <div class="color-section-label">Color</div>
+            <div id="colorChips" class="color-chips" role="radiogroup" aria-label="Hat color"></div>
+          </div>
         </div>
       </section>
 
+      <!-- Right panel: live preview + result -->
       <section class="panel" id="designerPanel">
-        <h2>Live Designer</h2>
+        <h2>Live Preview</h2>
         <div class="preview-wrap">
-          <svg class="hat-preview" viewBox="0 0 420 280" role="img" aria-label="Hat preview">
+          <div id="assetBadge" class="asset-badge">SVG placeholders — real part PNGs composite here</div>
+          <svg
+            class="hat-preview"
+            viewBox="0 0 420 300"
+            role="img"
+            aria-label="Hat preview"
+            id="hatPreview"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs id="svgDefs"></defs>
             <g id="layerBrim"></g>
             <g id="layerCrown"></g>
             <g id="layerBand"></g>
           </svg>
         </div>
 
-        <form id="builderForm" class="controls">
-          <label>
-            Crown
-            <select id="crownSelect"></select>
-          </label>
-
-          <label>
-            Brim
-            <select id="brimSelect"></select>
-          </label>
-
-          <label>
-            Band
-            <select id="bandSelect"></select>
-          </label>
-
-          <label>
-            Color Palette
-            <select id="colorSelect"></select>
-          </label>
-        </form>
-
         <div class="result">
-          <p id="buildCode"></p>
-          <p id="buildSummary"></p>
-          <p id="buildPrice"></p>
+          <div class="build-meta-row">
+            <span id="buildCode" class="build-code"></span>
+          </div>
+          <p id="buildSummary" class="build-summary"></p>
+          <div class="build-stats">
+            <span id="buildPrice" class="build-price"></span>
+            <span id="buildTurnaround" class="build-turnaround"></span>
+          </div>
+          <div id="compatNote" class="compat-note" hidden></div>
+          <div class="cta-row">
+            <a href="https://broadmoorhatco.com" target="_blank" rel="noopener" class="btn-cta">Book Appointment</a>
+            <button class="btn-secondary" type="button" id="saveBtn">Save Build</button>
+          </div>
         </div>
       </section>
     </main>
