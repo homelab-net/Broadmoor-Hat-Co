@@ -152,6 +152,99 @@ Source reviewed: https://broadmoorhatco.com/
 - Automated post-purchase care reminder and reorder flows
 - Loyalty program for repeat local customers and event planners
 
+
+## Feature Concept: Hat Finder 2.0 + Modular Designer Overhaul
+
+This concept builds directly on the existing "Find Your Signature Hat" quiz flow (inspiration -> color -> shape -> character -> occasion -> recommendation) and turns it into a production-ready design and checkout engine.
+
+### A) Keep and expand the quiz experience
+
+- Keep the strongest parts of the current quiz:
+  - Guided discovery for users who do not know hat terminology.
+  - Multi-step style preference capture with confidence score/match output.
+  - CTA paths: consult, request, save profile.
+- Expand with:
+  - Progressive disclosure (simple mode first, advanced mode optional).
+  - Real-time cost range updates as users make selections.
+  - Fit profile capture (head size, face-shape hints, wear context).
+
+### B) New modular designer architecture (piece-part assembly)
+
+Use a cache of preconfigured hat piece-parts and assemble a live composite preview:
+
+1. **Parts Catalog (Canonical Library)**
+   - Crown catalog (e.g., Cattleman, Teardrop, Pinch Front)
+   - Brim catalog (e.g., 4" flat, slight curve, traditional curve)
+   - Band catalog (ribbon, leather, braided, statement)
+   - Optional accents (feathers, conchos, branding plates)
+
+2. **Preconfigured Rendering Assets**
+   - One clean base image per part variant (neutral color, transparent PNG/SVG/web-ready).
+   - Standardized anchor points per asset so crowns/brims/bands align consistently in composition.
+   - Layer order: brim -> crown -> band -> accents -> lighting/shadow overlay.
+
+3. **Colorization Engine**
+   - Apply color by filter/software transform instead of storing every color permutation image.
+   - Recommended approach:
+     - Base grayscale + alpha masks per part.
+     - HSL/HSV transform + blend maps to preserve texture and shading.
+     - Color profile constraints so branded colors remain visually accurate across devices.
+   - Fallback: serve pre-rendered popular colorways if client device performance is weak.
+
+4. **Compatibility Rules Engine**
+   - Define allowed combinations (e.g., brim width limits for specific crown heights).
+   - Validate style coherence before showing final recommendation.
+   - Surface graceful alternatives ("closest valid option") when user picks unsupported combinations.
+
+### C) User flow for the overhauled styler
+
+1. User completes quiz or chooses direct builder mode.
+2. System maps quiz answers to a ranked part set (top 3 complete looks).
+3. User edits live preview by swapping crown/brim/band and color.
+4. Designer recalculates price/timeline instantly.
+5. User saves configuration to profile and moves to consultation/deposit.
+
+### D) Data model (implementation blueprint)
+
+- `part_type`: crown | brim | band | accent
+- `part_id`: unique SKU-like identifier
+- `shape_tags`: classic, rugged, modern, feminine, bold, etc.
+- `color_capabilities`: supported dye ranges and finish behavior
+- `compatibility_matrix`: allowed/blocked pairings
+- `price_modifier`: per-part delta from base package
+- `turnaround_modifier`: lead-time impact per part
+- `render_config`: asset URLs, anchor points, mask map, z-index
+
+### E) Performance + caching strategy
+
+- CDN cache for part assets and color masks.
+- Server-side generated preview snapshots for shareable links.
+- Edge cache of top combinations by season and campaign.
+- Local session cache so users can resume without data loss.
+
+### F) Conversion features tied to the designer
+
+- "Save My Build" with unique build code (e.g., BHC-7K2M).
+- "Bring to Appointment" handoff payload for in-store staff tablet view.
+- "Request This Build" sends exact part IDs + selected palette to sales pipeline.
+- Abandonment recovery emails with rendered preview image and one-click resume.
+
+### G) Rollout approach for this feature
+
+- **Phase 1 (MVP):** quiz + static recommendation + save profile.
+- **Phase 2:** live modular preview with cached parts and core colors.
+- **Phase 3:** compatibility rules, dynamic pricing, and deposit checkout.
+- **Phase 4:** AI-assisted style suggestions from uploaded outfit photos (optional).
+
+### H) Success metrics for Hat Finder 2.0
+
+- Quiz completion rate
+- Builder completion rate
+- Save/build share rate
+- Consultation booking rate from designer
+- Deposit conversion rate from designer
+- Average order value uplift for modular add-ons
+
 ## KPIs to Track
 
 - Appointment conversion rate
