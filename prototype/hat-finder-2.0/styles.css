@@ -35,6 +35,17 @@ body {
   padding: 1rem;
 }
 
+.mode-toggle {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-bottom: 0.8rem;
+}
+
+.mode-toggle button.active {
+  background: #eedfcf;
+  border-color: var(--accent);
+}
+
 .quiz-step h3 { margin-top: 0; }
 .options { display: grid; gap: 0.5rem; }
 .options button {
@@ -85,12 +96,58 @@ select, button {
   background: #fff;
 }
 
+.notice {
+  min-height: 1.25rem;
+  margin-top: 0.6rem;
+  color: #7b3f2a;
+  font-size: 0.92rem;
+}
+
 .result {
   margin-top: 1rem;
   border-top: 1px solid #e5d8cb;
   padding-top: 0.75rem;
 }
 
+#saveBuildBtn {
+  margin-top: 0.25rem;
+  background: #f2e5d8;
+}
+
+#savedBuildMessage {
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  color: #4f3e33;
+}
+
+.recommendations {
+  margin-top: 1rem;
+}
+
+.recommendations h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.recommendations-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.recommendation-card {
+  text-align: left;
+  display: grid;
+  gap: 0.2rem;
+  border: 1px solid #d9c6b4;
+  background: #fff;
+}
+
+.recommendation-card small,
+.muted {
+  color: #655146;
+}
+
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }
+  .controls { grid-template-columns: 1fr; }
 }

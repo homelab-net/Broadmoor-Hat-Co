@@ -15,6 +15,10 @@
     <main class="layout">
       <section class="panel" id="quizPanel">
         <h2>Style Quiz</h2>
+        <div class="mode-toggle" role="tablist" aria-label="Builder mode">
+          <button id="simpleModeBtn" type="button" class="active">Simple Mode</button>
+          <button id="advancedModeBtn" type="button">Advanced Mode</button>
+        </div>
         <div id="quizStep" class="quiz-step"></div>
         <div class="quiz-actions">
           <button id="prevBtn" type="button">Back</button>
@@ -52,13 +56,28 @@
             Color Palette
             <select id="colorSelect"></select>
           </label>
+
+          <label>
+            Fit Profile
+            <select id="fitSelect"></select>
+          </label>
         </form>
+
+        <div id="compatibilityMessage" class="notice" aria-live="polite"></div>
 
         <div class="result">
           <p id="buildCode"></p>
           <p id="buildSummary"></p>
           <p id="buildPrice"></p>
+          <p id="buildTurnaround"></p>
+          <button id="saveBuildBtn" type="button">Save My Build</button>
+          <p id="savedBuildMessage"></p>
         </div>
+
+        <section class="recommendations">
+          <h3>Top 3 Looks from Quiz</h3>
+          <div id="recommendationsList" class="recommendations-list"></div>
+        </section>
       </section>
     </main>
 
