@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broadmoor Hat Co — Hat Finder 2.0 Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Hat Finder 2.0 Prototype</h1>
+      <p>Quiz + modular piece-part designer (crown / brim / band)</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel" id="quizPanel">
+        <h2>Style Quiz</h2>
+        <div id="quizStep" class="quiz-step"></div>
+        <div class="quiz-actions">
+          <button id="prevBtn" type="button">Back</button>
+          <button id="nextBtn" type="button">Next</button>
+        </div>
+      </section>
+
+      <section class="panel" id="designerPanel">
+        <h2>Live Designer</h2>
+        <div class="preview-wrap">
+          <svg class="hat-preview" viewBox="0 0 420 280" role="img" aria-label="Hat preview">
+            <g id="layerBrim"></g>
+            <g id="layerCrown"></g>
+            <g id="layerBand"></g>
+          </svg>
+        </div>
+
+        <form id="builderForm" class="controls">
+          <label>
+            Crown
+            <select id="crownSelect"></select>
+          </label>
+
+          <label>
+            Brim
+            <select id="brimSelect"></select>
+          </label>
+
+          <label>
+            Band
+            <select id="bandSelect"></select>
+          </label>
+
+          <label>
+            Color Palette
+            <select id="colorSelect"></select>
+          </label>
+        </form>
+
+        <div class="result">
+          <p id="buildCode"></p>
+          <p id="buildSummary"></p>
+          <p id="buildPrice"></p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

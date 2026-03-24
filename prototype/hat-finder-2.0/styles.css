@@ -1,0 +1,96 @@
+:root {
+  --bg: #f5f1ea;
+  --ink: #2e241f;
+  --panel: #fffdfa;
+  --accent: #7c4f3c;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.topbar {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #d7cec2;
+  background: #fff;
+}
+.topbar h1 { margin: 0; font-size: 1.35rem; }
+.topbar p { margin: 0.35rem 0 0; color: #5b4d45; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid #ddcfc0;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.quiz-step h3 { margin-top: 0; }
+.options { display: grid; gap: 0.5rem; }
+.options button {
+  border: 1px solid #ccb6a3;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+  cursor: pointer;
+}
+.options button.active {
+  border-color: var(--accent);
+  background: #f9efe7;
+}
+.quiz-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.preview-wrap {
+  display: grid;
+  place-items: center;
+  background: #f7f3ee;
+  border: 1px dashed #ccb9a6;
+  border-radius: 12px;
+  min-height: 300px;
+}
+.hat-preview { width: 100%; max-width: 400px; }
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.controls label {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: 0.93rem;
+}
+select, button {
+  font: inherit;
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #cbb7a4;
+  background: #fff;
+}
+
+.result {
+  margin-top: 1rem;
+  border-top: 1px solid #e5d8cb;
+  padding-top: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
