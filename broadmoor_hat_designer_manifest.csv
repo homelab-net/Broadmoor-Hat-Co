@@ -1,0 +1,71 @@
+asset_name,part_type,crown_style,brim_style,brim_front,color,view_lock,material,background,batch_group,output_filename
+crown_open_silverbelly,crown,Open,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_open_silverbelly.png
+crown_low_cattleman_silverbelly,crown,Low Cattleman,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_low_cattleman_silverbelly.png
+crown_cattleman_silverbelly,crown,Cattleman,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_cattleman_silverbelly.png
+crown_wide_cattleman_silverbelly,crown,Wide Cattleman,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_wide_cattleman_silverbelly.png
+crown_ranch_silverbelly,crown,Ranch,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_ranch_silverbelly.png
+crown_gus_silverbelly,crown,Gus,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_gus_silverbelly.png
+crown_brick_silverbelly,crown,Brick,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_brick_silverbelly.png
+crown_square_top_silverbelly,crown,Square Top,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_square_top_silverbelly.png
+crown_round_top_silverbelly,crown,Round Top,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_round_top_silverbelly.png
+crown_diamond_top_silverbelly,crown,Diamond Top,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_diamond_top_silverbelly.png
+crown_gambler_silverbelly,crown,Gambler,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_gambler_silverbelly.png
+crown_clint_silverbelly,crown,Clint,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_clint_silverbelly.png
+crown_association_silverbelly,crown,Association,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_association_silverbelly.png
+crown_puncher_silverbelly,crown,Puncher,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_puncher_silverbelly.png
+crown_luke_silverbelly,crown,Luke,,,silverbelly,left-side profile,premium western felt,transparent,crowns,crown_luke_silverbelly.png
+brim_flat_pointed_silverbelly,brim,,Flat,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_flat_pointed_silverbelly.png
+brim_flat_round_silverbelly,brim,,Flat,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_flat_round_silverbelly.png
+brim_flat_square_silverbelly,brim,,Flat,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_flat_square_silverbelly.png
+brim_flat_wide_silverbelly,brim,,Flat,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_flat_wide_silverbelly.png
+brim_flat_extra_wide_silverbelly,brim,,Flat,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_flat_extra_wide_silverbelly.png
+brim_low_pointed_silverbelly,brim,,Low,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_low_pointed_silverbelly.png
+brim_low_round_silverbelly,brim,,Low,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_low_round_silverbelly.png
+brim_low_square_silverbelly,brim,,Low,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_low_square_silverbelly.png
+brim_low_wide_silverbelly,brim,,Low,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_low_wide_silverbelly.png
+brim_low_extra_wide_silverbelly,brim,,Low,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_low_extra_wide_silverbelly.png
+brim_george_pointed_silverbelly,brim,,George,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_george_pointed_silverbelly.png
+brim_george_round_silverbelly,brim,,George,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_george_round_silverbelly.png
+brim_george_square_silverbelly,brim,,George,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_george_square_silverbelly.png
+brim_george_wide_silverbelly,brim,,George,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_george_wide_silverbelly.png
+brim_george_extra_wide_silverbelly,brim,,George,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_george_extra_wide_silverbelly.png
+brim_half_taco_pointed_silverbelly,brim,,Half Taco,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_half_taco_pointed_silverbelly.png
+brim_half_taco_round_silverbelly,brim,,Half Taco,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_half_taco_round_silverbelly.png
+brim_half_taco_square_silverbelly,brim,,Half Taco,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_half_taco_square_silverbelly.png
+brim_half_taco_wide_silverbelly,brim,,Half Taco,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_half_taco_wide_silverbelly.png
+brim_half_taco_extra_wide_silverbelly,brim,,Half Taco,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_half_taco_extra_wide_silverbelly.png
+brim_relaxed_taco_pointed_silverbelly,brim,,Relaxed Taco,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_relaxed_taco_pointed_silverbelly.png
+brim_relaxed_taco_round_silverbelly,brim,,Relaxed Taco,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_relaxed_taco_round_silverbelly.png
+brim_relaxed_taco_square_silverbelly,brim,,Relaxed Taco,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_relaxed_taco_square_silverbelly.png
+brim_relaxed_taco_wide_silverbelly,brim,,Relaxed Taco,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_relaxed_taco_wide_silverbelly.png
+brim_relaxed_taco_extra_wide_silverbelly,brim,,Relaxed Taco,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_relaxed_taco_extra_wide_silverbelly.png
+brim_taco_pointed_silverbelly,brim,,Taco,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_taco_pointed_silverbelly.png
+brim_taco_round_silverbelly,brim,,Taco,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_taco_round_silverbelly.png
+brim_taco_square_silverbelly,brim,,Taco,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_taco_square_silverbelly.png
+brim_taco_wide_silverbelly,brim,,Taco,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_taco_wide_silverbelly.png
+brim_taco_extra_wide_silverbelly,brim,,Taco,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_taco_extra_wide_silverbelly.png
+brim_buckaroo_pointed_silverbelly,brim,,Buckaroo,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_buckaroo_pointed_silverbelly.png
+brim_buckaroo_round_silverbelly,brim,,Buckaroo,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_buckaroo_round_silverbelly.png
+brim_buckaroo_square_silverbelly,brim,,Buckaroo,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_buckaroo_square_silverbelly.png
+brim_buckaroo_wide_silverbelly,brim,,Buckaroo,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_buckaroo_wide_silverbelly.png
+brim_buckaroo_extra_wide_silverbelly,brim,,Buckaroo,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_buckaroo_extra_wide_silverbelly.png
+brim_retro_pointed_silverbelly,brim,,Retro,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_retro_pointed_silverbelly.png
+brim_retro_round_silverbelly,brim,,Retro,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_retro_round_silverbelly.png
+brim_retro_square_silverbelly,brim,,Retro,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_retro_square_silverbelly.png
+brim_retro_wide_silverbelly,brim,,Retro,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_retro_wide_silverbelly.png
+brim_retro_extra_wide_silverbelly,brim,,Retro,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_retro_extra_wide_silverbelly.png
+brim_rolled_pointed_silverbelly,brim,,Rolled,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_rolled_pointed_silverbelly.png
+brim_rolled_round_silverbelly,brim,,Rolled,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_rolled_round_silverbelly.png
+brim_rolled_square_silverbelly,brim,,Rolled,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_rolled_square_silverbelly.png
+brim_rolled_wide_silverbelly,brim,,Rolled,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_rolled_wide_silverbelly.png
+brim_rolled_extra_wide_silverbelly,brim,,Rolled,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_rolled_extra_wide_silverbelly.png
+brim_cone_and_go_pointed_silverbelly,brim,,Cone & Go,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_cone_and_go_pointed_silverbelly.png
+brim_cone_and_go_round_silverbelly,brim,,Cone & Go,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_cone_and_go_round_silverbelly.png
+brim_cone_and_go_square_silverbelly,brim,,Cone & Go,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_cone_and_go_square_silverbelly.png
+brim_cone_and_go_wide_silverbelly,brim,,Cone & Go,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_cone_and_go_wide_silverbelly.png
+brim_cone_and_go_extra_wide_silverbelly,brim,,Cone & Go,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_cone_and_go_extra_wide_silverbelly.png
+brim_pencil_roll_pointed_silverbelly,brim,,Pencil Roll,Pointed,silverbelly,left-side profile,premium western felt,transparent,brims,brim_pencil_roll_pointed_silverbelly.png
+brim_pencil_roll_round_silverbelly,brim,,Pencil Roll,Round,silverbelly,left-side profile,premium western felt,transparent,brims,brim_pencil_roll_round_silverbelly.png
+brim_pencil_roll_square_silverbelly,brim,,Pencil Roll,Square,silverbelly,left-side profile,premium western felt,transparent,brims,brim_pencil_roll_square_silverbelly.png
+brim_pencil_roll_wide_silverbelly,brim,,Pencil Roll,Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_pencil_roll_wide_silverbelly.png
+brim_pencil_roll_extra_wide_silverbelly,brim,,Pencil Roll,Extra Wide,silverbelly,left-side profile,premium western felt,transparent,brims,brim_pencil_roll_extra_wide_silverbelly.png
