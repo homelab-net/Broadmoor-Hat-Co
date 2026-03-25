@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hat Designer — Broadmoor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="hat-quiz.html">Hat Quiz</a>
+      <a href="hat-designer.html">Hat Designer</a>
+    </nav>
+
+    <section class="card">
+      <h1>Hat Designer</h1>
+      <p>Initial layer-builder layout for crown, brim, and color selections.</p>
+      <small>State source: URL params + localStorage (next increment).</small>
+    </section>
+
+    <section class="card grid">
+      <article>
+        <h3>Crown</h3>
+        <p>Teardrop · Telescope · Cattleman</p>
+      </article>
+      <article>
+        <h3>Brim</h3>
+        <p>Rancher · Pencil · Flat</p>
+      </article>
+      <article>
+        <h3>Color</h3>
+        <p>Sand · Bone · Mocha · Black</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <button id="share-link" type="button">Copy Share Link</button>
+      <button type="button">Book With This Design</button>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
