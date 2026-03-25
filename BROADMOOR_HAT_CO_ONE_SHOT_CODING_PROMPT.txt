@@ -1,0 +1,270 @@
+BROADMOOR_HAT_CO_ONE_SHOT_CODING_PROMPT.txt
+
+You are modifying an EXISTING Shopify storefront/theme for Broadmoor Hat Co.
+
+Your task is to IMPLEMENT two new hamburger-accessible features directly into the existing Shopify website/theme, not to build a detached app and not to build a standalone prototype:
+
+1. Hat Quiz
+2. Hat Designer
+
+You must treat the existing Broadmoor storefront as the source of truth for brand tone, layout language, conversion hierarchy, and navigation structure. The new features must feel native to the current site and must support—not replace—the existing core conversion paths such as:
+- Book Appointment
+- Book Event
+- Shop
+
+PRIMARY OBJECTIVE
+Build a Shopify-native v1 implementation of Hat Quiz and Hat Designer that uses uploaded modular hat piece-part PNG assets (crowns, brims, bands if available) as the visual source of truth for live preview assembly.
+
+NON-NEGOTIABLE RULES
+- Do NOT build a detached React/Vite/Next app unless the existing theme architecture absolutely forces it and you explicitly justify why.
+- Do NOT create another standalone prototype folder as the primary output.
+- Do NOT replace the current site navigation or booking flow.
+- Do NOT show price, estimated price, lead time, turnaround, or schedule indicators anywhere in the customer-facing UI for these features.
+- Do NOT use runtime AI image generation.
+- Do NOT require a separate PNG export set for every hat color.
+- Do NOT randomize quiz results.
+- Do NOT hand-tune visual alignment “by eye” in scattered code without documenting the alignment model.
+- Do NOT assume the public prototype is the live production architecture.
+
+EXISTING PRODUCT DIRECTION
+The new features must be:
+- Shopify-native
+- visually premium, quiet, western, and product-first
+- mobile-friendly
+- consistent with the existing Broadmoor storefront
+- oriented toward conversion into consultation/booking, not e-commerce self-checkout
+
+AUTHORITATIVE INPUTS
+Use the uploaded documentation pack(s), prompt libraries, manifest guidance, and uploaded modular piece-part image assets in the repo/docs/context as your implementation source material.
+
+REQUIRED FEATURE BEHAVIOR
+
+==================================================
+A) HAT QUIZ
+==================================================
+
+Purpose:
+A guided style-discovery flow for customers who do not know hat terminology.
+
+Requirements:
+- Accessible from the hamburger/menu as “Hat Quiz”
+- Deterministic scoring only
+- Same answers must produce the same primary result and alternates
+- Output:
+  - 1 primary recommendation
+  - 2 alternate recommendations
+  - short rationale/explanation
+  - CTA/button to open the recommendation in Hat Designer with preloaded selections
+- No pricing
+- No lead time / turnaround
+- No dead-end result state
+
+Quiz UX goal:
+“Help me figure out what style fits me.”
+
+==================================================
+B) HAT DESIGNER
+==================================================
+
+Purpose:
+A modular live-preview configurator for users who want direct control.
+
+Requirements:
+- Accessible from the hamburger/menu as “Hat Designer”
+- Use uploaded transparent PNG piece-part assets as the preview source of truth
+- Modular live preview using composited layers
+- Users must be able to change:
+  - crown
+  - brim
+  - band (if included in the available asset/library scope)
+  - color
+- AI generated bands have not been created. Utilize plain color-shifted images that do not have a filter applied to them. Use simple ribbon/bars to create a band that uses several different colors. The color-changing filter should only apply to the brim and crown of the hat.
+- Output/behavior:
+  - live preview
+  - build code
+  - build summary
+  - save/share actions
+  - booking handoff action
+  - compatibility messaging if certain combinations are blocked or adjusted
+- No pricing
+- No lead time / turnaround
+
+Designer UX goal:
+“Let me build and refine my hat visually.”
+
+==================================================
+C) COLOR SYSTEM
+==================================================
+
+This is a hard requirement.
+
+The system must provide visible customer-facing color controls:
+- color chips
+- swatches
+- or clearly labeled buttons
+
+Preferred implementation:
+- clickable swatch/chip row beneath or beside preview
+- instant preview update
+- clear active state
+
+Color rendering requirement:
+- use static transparent PNG assets
+- apply browser-side filter-based recoloring or equivalent front-end transform
+- do NOT require separate PNG files for every colorway
+- preserve texture/shading as much as possible
+- selected color must persist in:
+  - saved/share URLs
+  - handoff payloads
+  - resume state if implemented
+
+==================================================
+D) VISUAL ASSET / ALIGNMENT RULES
+==================================================
+
+The uploaded crown/brim/band piece parts are modular production assets and must be treated as such.
+
+You must implement a coherent preview composition model:
+- shared canvas assumptions
+- consistent origin
+- consistent layer order
+- documented alignment logic
+
+Required layer order:
+1. brim base
+2. crown
+3. band
+4. optional future accents (do not scope unless already present and documented)
+
+If the uploaded assets are not yet normalized enough for production compositing, do NOT hide that fact.
+Instead:
+- implement the cleanest viable preview system possible
+- document precisely what normalization fixes are still required
+- centralize those assumptions in one place (manifest/config), not ad hoc throughout the codebase
+
+==================================================
+E) SHOPIFY IMPLEMENTATION REQUIREMENT
+==================================================
+
+Build this as a theme-native implementation if at all possible.
+
+Preferred architecture:
+- page templates
+- sections
+- snippets
+- assets
+- JSON templates / Liquid where appropriate
+- theme JS/CSS assets
+- menu integration into existing navigation
+
+The final output must be structured so a merchant/theme developer can actually place it into the existing Shopify theme and deploy it.
+
+If the repository you are working in does NOT contain the actual live Shopify theme structure:
+- say so explicitly
+- do not pretend you completed a full production theme integration
+- still produce the best possible implementation package and exact integration instructions
+- clearly separate “implemented directly in theme files” from “provided as integration-ready module”
+
+==================================================
+F) BOOKING / HANDOFF BEHAVIOR
+==================================================
+
+These new features must support the existing booking/sales flow.
+
+When the user saves, shares, or books, preserve as much of this payload as practical:
+- build_code
+- crown_id
+- brim_id
+- band_id
+- color_id
+- source_mode (quiz or designer)
+
+Customer-facing UI should remain premium and light.
+Do not expose internal IDs unless needed behind the scenes.
+
+==================================================
+G) MENU / NAVIGATION
+==================================================
+
+Implement or document how to add these to the existing site menu / hamburger navigation:
+- Hat Quiz
+- Hat Designer
+
+These should feel like natural additions to the current site, not a separate product universe.
+
+==================================================
+H) ENGINEERING / CODE QUALITY RULES
+==================================================
+
+- Keep code modular and documented
+- Prefer centralized config for:
+  - part catalogs
+  - color filters
+  - compatibility rules
+  - quiz scoring/result mapping
+  - asset alignment metadata
+- Avoid brittle hard-coding
+- Build for future expansion without overbuilding
+- Clearly note assumptions
+- If a limitation exists, state it explicitly instead of masking it
+
+==================================================
+I) WHAT YOU MUST INSPECT FIRST
+==================================================
+
+Before coding, inspect the current repository and determine:
+1. Is this the actual Shopify theme repo or only a prototype/docs repo?
+2. What files/folders already exist for:
+   - theme layout
+   - templates
+   - sections
+   - snippets
+   - assets
+3. Whether there is already a hat configurator prototype
+4. Where the uploaded piece-part assets live
+5. What docs/manifest/config files exist and should be treated as authoritative
+
+Then proceed accordingly.
+
+==================================================
+J) REQUIRED DELIVERABLES
+==================================================
+
+Return ALL of the following in your response/output:
+
+1. A concise implementation summary
+2. The exact file tree you created or modified
+3. Every created/edited file, with full contents
+4. A note stating whether you were working in:
+   - the real Shopify theme
+   - or a prototype/integration module because the live theme files were not present
+5. Menu integration steps for Shopify
+6. Deployment steps
+7. QA checklist
+8. Known limitations / required follow-on fixes
+9. Asset normalization issues still needing cleanup, if any
+
+==================================================
+K) SUCCESS CRITERIA
+==================================================
+
+The output is successful only if:
+- Hat Quiz exists and produces deterministic recommendations
+- Hat Designer exists and updates live
+- visible color controls recolor static PNG layers without needing separate color images
+- no price or lead-time UI is shown
+- the implementation feels aligned with the existing Broadmoor site
+- the result is structured for real Shopify integration rather than another throwaway demo
+
+==================================================
+L) EXECUTION INSTRUCTION
+==================================================
+
+Now inspect the repository and implement the cleanest real Shopify-native version possible under the actual constraints of the files present.
+
+If the repo is missing the live Shopify theme, then:
+- build the implementation as an integration-ready module/package
+- state clearly that direct production integration could not be completed because the live theme files were absent
+- still provide exact copy/paste placement instructions for the real theme
+
+Begin with repository inspection, then implement.
