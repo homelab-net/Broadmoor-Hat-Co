@@ -1,0 +1,760 @@
+# Broadmoor Hat Co — Hat Designer + Find Your Hat Implementation Specification
+
+**Reference website:** https://broadmoorhatco.com/
+
+## 1. Purpose
+
+Build and deliver two new customer-facing pages for the Broadmoor Hat Co website:
+
+1. **Hat Designer**
+2. **Find Your Hat**
+
+These pages must be implemented as part of a **complete Shopify theme codebase** that can be imported and deployed with minimal manual intervention. The output must include all baked-in logic, all required assets, and all required page behavior described in this document.
+
+Do not build a detached microsite. Do not build a prototype. Do not build a partial component demo. Build a production-ready theme implementation package for the Broadmoor Hat Co website.
+
+---
+
+## 2. Core Product Intent
+
+### 2.1 Hat Designer
+The Hat Designer is a simple visual configurator for custom western hats.
+
+Users must be able to change only the following:
+- felt color
+- brim
+- crown
+- band
+
+The Hat Designer must visually update the assembled hat instantly when the user changes a selection.
+
+### 2.2 Find Your Hat
+Find Your Hat is a short quiz that helps a user identify a recommended western hat archetype.
+
+The quiz must:
+- ask 8 questions
+- produce 1 of 4 results
+- display a short explanation of the result
+- map the result to a pre-baked baseline hat design
+- allow the user to continue into the Hat Designer with that baseline design already loaded
+
+---
+
+## 3. Primary Build Requirements
+
+### 3.1 Navigation placement
+Both new pages must be accessible through the **hamburger menu only**.
+
+Required labels:
+- **Hat Designer**
+- **Find Your Hat**
+
+Do not add these pages to a top desktop nav unless explicitly necessary for theme parity. The intended user-facing requirement is hamburger-only access.
+
+### 3.2 Shopify delivery target
+The final output must be a **complete theme-level codebase** that is easily imported into Shopify.
+
+The deliverable must include:
+- templates
+- sections or snippets as needed
+- all required JavaScript
+- all required CSS
+- all baked-in image assets and piece parts
+- all quiz logic
+- all state logic
+- all export logic
+
+Assume the goal is minimal post-handoff editing.
+
+### 3.3 Reference brand/site alignment
+The implementation must visually and structurally align with the existing Broadmoor Hat Co website at:
+
+**https://broadmoorhatco.com/**
+
+Maintain a premium western brand feel. Do not design this like a generic ecommerce configurator.
+
+---
+
+## 4. Explicit MVP Constraints
+
+### 4.1 Allowed interactions
+Users may only change:
+- brim
+- crown
+- band
+- felt color
+
+### 4.2 Explicitly excluded from MVP
+Do not include:
+- rotation
+- alternate camera views
+- 360-degree rendering
+- outfit pairing
+- image upload
+- AR or camera features
+- analytics tracking
+- accessibility-specific enhancement work beyond normal semantic coding
+- advanced checkout inside the configurator
+- compatibility restrictions between part combinations
+
+### 4.3 Combination validity
+All part combinations are valid.
+
+Do not block any crown/brim/band combination.
+Do not gray out options.
+Do not auto-correct combinations.
+
+---
+
+## 5. Asset System and Compositing Contract
+
+### 5.1 Canvas size
+All piece-part images are normalized to:
+- **1078 x 1078 pixels**
+
+### 5.2 Alignment rule
+All piece parts assemble by aligning from the **top-left pixel origin**.
+
+This is a locked rule.
+Do not compute dynamic anchor points.
+Do not attempt auto-alignment.
+Use fixed stack alignment.
+
+### 5.3 Layer order
+Render piece parts in the following order:
+1. **brim**
+2. **crown**
+3. **band**
+
+Brim is the bottom layer.
+Band is the top layer.
+
+### 5.4 Piece-part classes
+The system uses three part classes:
+- brim
+- crown
+- band
+
+### 5.5 Naming convention
+Use deterministic lowercase internal IDs in the format:
+- `category_shape`
+
+Examples:
+- `crown_open`
+- `brim_flat`
+- `band_leather`
+
+If the baked-in asset library uses specific filenames, internal logic must match those exact filenames.
+
+### 5.6 UI labels
+Dropdowns must derive from the asset library / piece-part filenames, but the user-facing UI must show **clean professional shorthand labels**.
+
+Examples:
+- internal: `brim_george`
+- display: `George`
+
+### 5.7 Existing modular production standard
+The modular prompt standards already establish the photographic and compositing intent for crown, brim, and band assets. The crown-only template requires consistent crown seam placement and strict modular alignment fileciteturn0file1. The brim-only template requires a clean crown opening and exact compositing compatibility with the crown system fileciteturn0file0. The band-only modular prompt library requires a fitted crown-base overlay scaled for seamless drop-on compositing within the same production standard fileciteturn0file2.
+
+---
+
+## 6. Color System
+
+### 6.1 Available colors
+The Hat Designer must support exactly five felt colors:
+- pecan
+- black
+- chocolate
+- silverbelly
+- white
+
+### 6.2 Color rendering method
+Use **canvas tinting** over greyscale piece-part assets.
+
+Do not use CSS filter approximation as the primary method.
+Do not require unique full-color rendered part libraries for MVP.
+
+### 6.3 Selected color text
+Display text under the color circles in this exact format:
+
+**Selected color: [COLOR_NAME]**
+
+Example:
+- Selected color: Silverbelly
+
+### 6.4 Color behavior
+When the user changes color, the current assembled hat preview must update instantly.
+
+---
+
+## 7. Hat Designer Page Specification
+
+### 7.1 Page name
+**Hat Designer**
+
+### 7.2 Purpose
+Allow the user to visually configure a custom western hat by selecting:
+- felt color
+- brim
+- crown
+- band
+
+### 7.3 Intro copy
+Use this exact page intro or extremely close equivalent:
+
+> Build your custom western hat by selecting your preferred brim, crown, band, and felt color. Your design updates instantly so you can compare styles, save your hat, and bring it into your appointment.
+
+### 7.4 Default page load behavior
+If the user enters the Hat Designer directly, load the **Western Formal** baseline design by default.
+
+Default direct-load design:
+- color: black
+- crown: cattleman
+- brim: George
+- band: leather
+
+### 7.5 Quiz-origin load behavior
+If the user arrives from Find Your Hat, the page must load the baseline design associated with their quiz result.
+
+Only in quiz-origin cases, display this message near the top of the page:
+
+**Loaded from your Find Your Hat result: [RESULT_NAME]**
+
+Do not show that message on direct page entry.
+
+### 7.6 Approved page layout
+Render the Hat Designer in this order:
+
+1. page title
+2. short intro text
+3. assembled hat preview at the top
+4. color circles
+5. selected color text under the circles
+6. brim dropdown
+7. crown dropdown
+8. band dropdown
+9. action buttons
+
+### 7.7 Dropdowns
+Use three distinct dropdown controls:
+- brim
+- crown
+- band
+
+Use clean display labels in the UI.
+Use internal asset IDs in logic/state.
+
+### 7.8 Color selector UI
+Render five selectable color circles corresponding to:
+- pecan
+- black
+- chocolate
+- silverbelly
+- white
+
+Use clear, premium-looking circles. Display the selected color text beneath them.
+
+### 7.9 Preview behavior
+The assembled hat preview must:
+- be the primary focal element near the top of the page
+- update instantly when any selection changes
+- avoid visible loading states
+- remain static with no rotations or alternate viewpoints
+
+### 7.10 Action buttons on Hat Designer
+The Hat Designer page must include these buttons:
+- **Book Appointment**
+- **Save PNG**
+- **Copy Share Link**
+
+Recommended order:
+1. Book Appointment
+2. Save PNG
+3. Copy Share Link
+
+### 7.11 Button behaviors
+#### Book Appointment
+Navigate the user to the existing Appointments page on the Broadmoor Hat Co website.
+
+#### Save PNG
+Export the current assembled design as a PNG according to the export specification in Section 10.
+
+#### Copy Share Link
+Copy a URL that reopens the current design with the exact currently selected:
+- brim
+- crown
+- band
+- color
+
+---
+
+## 8. Find Your Hat Page Specification
+
+### 8.1 Page name
+**Find Your Hat**
+
+### 8.2 Purpose
+Help users identify a recommended western hat archetype through a short guided quiz.
+
+### 8.3 Intro copy
+Use this exact page intro or extremely close equivalent:
+
+> Not sure where to start? Answer a few quick questions and we’ll match you with a custom western hat style that fits your look, lifestyle, and occasion. From there, you can refine your design or book an appointment with Broadmoor Hat Co.
+
+### 8.4 Primary CTA
+Use:
+- **Start the Quiz**
+
+Optional helper text below CTA:
+- **8 quick questions · personalized result · preloaded hat design**
+
+### 8.5 Quiz behavior
+The quiz must:
+- contain exactly 8 questions
+- present 4 answer choices per question
+- use plain language only
+- avoid technical hat jargon
+- map each answer to one of 4 archetypes
+- produce one final result only
+
+Do not show multiple final results for MVP.
+Do not show alternates.
+
+---
+
+## 9. Quiz Questions and Scoring
+
+### 9.1 Archetype keys
+Use these result keys:
+- `western_formal`
+- `everyday_classic`
+- `bold_statement`
+- `rugged_traditional`
+
+### 9.2 Public result titles
+Use these exact titles:
+- **Western Formal**
+- **Everyday Classic**
+- **Bold Statement**
+- **Rugged Traditional**
+
+### 9.3 Scoring rule
+Each answer contributes **1 point** to its matching archetype.
+
+Highest total wins.
+
+### 9.4 Tie-breaker logic
+If there is a tie, resolve in this order:
+1. Q1
+2. Q7
+3. Q8
+4. default to **Everyday Classic**
+
+### 9.5 Quiz questions
+
+#### Q1. What are you most likely wearing this hat for?
+- A. Weddings, formal events, or elevated occasions
+- B. A little bit of everything
+- C. Making a statement and standing out
+- D. Everyday western wear, ranch, or heritage style
+
+#### Q2. What kind of first impression do you want your hat to give?
+- A. Polished and refined
+- B. Timeless and easy to wear
+- C. Confident and unforgettable
+- D. Authentic and grounded
+
+#### Q3. Which overall look feels most like you?
+- A. Clean and elevated
+- B. Classic and versatile
+- C. Bold and fashion-forward
+- D. Traditional and rugged
+
+#### Q4. How much attention do you want your hat to draw?
+- A. Subtle and tasteful
+- B. Noticeable, but balanced
+- C. A strong visual statement
+- D. More functional than flashy
+
+#### Q5. What best matches your wardrobe?
+- A. Dress clothes, tailored looks, and formal westernwear
+- B. Denim, boots, and everyday staples
+- C. Standout outfits and elevated styling
+- D. Workwear, heritage westernwear, and durable basics
+
+#### Q6. Which shape direction appeals to you most?
+- A. Sleek and refined
+- B. Balanced and classic
+- C. Sharp and striking
+- D. Traditional and sturdy
+
+#### Q7. What matters most in your custom hat?
+- A. Looking elevated for important occasions
+- B. Having one hat that works for almost everything
+- C. Creating something unique
+- D. Wearing something authentic and rooted in western tradition
+
+#### Q8. Which outcome sounds best to you?
+- A. A refined western hat for elevated moments
+- B. A go-to western hat I can wear anywhere
+- C. A standout custom hat with strong personality
+- D. A traditional western hat with grit and character
+
+### 9.6 Answer mapping
+Use this answer-to-archetype mapping consistently across all questions:
+- A = Western Formal
+- B = Everyday Classic
+- C = Bold Statement
+- D = Rugged Traditional
+
+---
+
+## 10. Quiz Result Definitions and Baseline Builds
+
+Each quiz result must map to a pre-baked baseline hat design that is loaded into the Hat Designer when the user clicks **Start My Custom Hat**.
+
+### 10.1 Western Formal
+**Title:** Western Formal
+
+**Body copy:**
+> Your answers pointed toward a polished, elevated western style with clean lines and a timeless presence. This result is designed for weddings, formal events, and dress-forward occasions where you want your hat to feel refined, intentional, and classic.
+
+**Baseline build:**
+- color: black
+- crown: cattleman
+- brim: George
+- band: leather
+
+### 10.2 Everyday Classic
+**Title:** Everyday Classic
+
+**Body copy:**
+> Your answers leaned toward a versatile western style that feels natural in almost any setting. This result is built around balance, wearability, and timeless character, giving you a custom hat that feels easy to wear while still distinctly western.
+
+**Baseline build:**
+- color: pecan
+- crown: round top
+- brim: George
+- band: horsehair
+
+### 10.3 Bold Statement
+**Title:** Bold Statement
+
+**Body copy:**
+> Your answers showed a preference for individuality, confidence, and a stronger visual presence. This result starts with a more distinctive western profile that stands out in a crowd while still feeling grounded in premium craftsmanship.
+
+**Baseline build:**
+- color: silverbelly
+- crown: Gus
+- brim: low
+- band: beaded
+
+### 10.4 Rugged Traditional
+**Title:** Rugged Traditional
+
+**Body copy:**
+> Your answers aligned with a heritage-driven western style rooted in authenticity, grit, and tradition. This result reflects a stronger traditional character with a practical, grounded look inspired by classic western wear.
+
+**Baseline build:**
+- color: chocolate
+- crown: wide cattleman
+- brim: flat
+- band: leather
+
+### 10.5 Result page buttons
+Each result page/view must show:
+- **Start My Custom Hat**
+- **Book Appointment**
+
+### 10.6 Result button behaviors
+#### Start My Custom Hat
+Open the Hat Designer with the archetype baseline design preselected.
+
+#### Book Appointment
+Navigate the user to the existing Appointments page.
+
+---
+
+## 11. Share State and URL Contract
+
+### 11.1 Requirement
+The current hat design must be shareable by URL.
+
+### 11.2 Required shared state
+The URL must preserve enough information to fully restore:
+- selected brim
+- selected crown
+- selected band
+- selected color
+- quiz result origin only if relevant and available
+
+### 11.3 Expected behavior
+If a user opens a shared URL:
+- the Hat Designer must restore that exact design state
+- the preview must match the saved state
+- the dropdowns and color selection must match the saved state
+
+### 11.4 Implementation note
+Use a stable, deterministic client-side encoding approach that is easy to maintain. Readability is preferred over unnecessary obfuscation.
+
+---
+
+## 12. PNG Export Specification
+
+### 12.1 Export type
+Export a single composite PNG of the current assembled hat design.
+
+### 12.2 Export dimensions
+- **1078 x 1078 px**
+
+### 12.3 Export background
+Use a **neutral background**.
+
+### 12.4 Export branding
+Place the **Broadmoor Hat Co logo** in the **bottom-right corner**.
+
+### 12.5 Export filename
+The file must download as:
+- **`custom_hat.png`**
+
+### 12.6 Export content
+The export must represent the current selected state of:
+- brim
+- crown
+- band
+- color
+
+---
+
+## 13. Appointment Handoff Requirements
+
+### 13.1 Broad behavior
+The implementation must support the real-world use case that the user may:
+- take their selected design into an appointment
+- save the design for themselves
+- share the design with Broadmoor Hat Co staff
+
+### 13.2 Required support artifacts
+The implementation must support these artifacts:
+- share URL
+- human-readable build state
+- PNG export
+
+### 13.3 Book Appointment behavior
+All **Book Appointment** buttons must route to the existing Appointments page on the Broadmoor Hat Co website.
+
+### 13.4 Recommended implementation approach
+Implement the simplest robust MVP path:
+- preserve state in share URL
+- allow PNG export locally
+- optionally pass build state into appointment links using query parameters if the existing site flow can safely absorb them
+
+Do not build a complex upload workflow unless necessary.
+Do not invent an internal CRM system in this implementation.
+
+---
+
+## 14. Labeling and Display Text
+
+### 14.1 Section labels on Hat Designer
+Use:
+- **Choose a Felt Color**
+- **Choose a Brim**
+- **Choose a Crown**
+- **Choose a Band**
+
+### 14.2 Selected color text
+Use exactly:
+- **Selected color: [COLOR_NAME]**
+
+### 14.3 Example part labels
+Use clean professional shorthand such as:
+- George
+- Flat
+- Low
+- Cattleman
+- Wide Cattleman
+- Round Top
+- Gus
+- Leather
+- Horsehair
+- Beaded
+
+### 14.4 Internal vs external labels
+Internally use asset IDs.
+Externally display cleaned labels.
+
+---
+
+## 15. Performance Requirements
+
+This implementation must be lightweight and fast.
+
+### 15.1 Required performance approach
+- mobile-first rendering
+- fast initial page load
+- preload only the default or immediately needed assets
+- lazy-load non-default assets where practical
+- keep JavaScript lightweight
+- avoid unnecessary animations
+- avoid visible loading states during standard selection changes
+
+### 15.2 Selection updates
+When the user changes brim, crown, band, or color, update the preview instantly.
+
+### 15.3 Framework guidance
+Use the simplest reliable implementation approach compatible with a Shopify theme. Do not introduce a heavy application framework unless clearly necessary.
+
+---
+
+## 16. Styling Guidance
+
+### 16.1 Brand feel
+This feature must feel like part of Broadmoor Hat Co, not like a generic SaaS tool.
+
+Styling should feel:
+- premium
+- clean
+- western
+- refined
+- service-oriented
+
+### 16.2 Visual hierarchy
+The hat preview should be the dominant visual element.
+Controls should feel secondary but clear.
+Results should feel polished and premium.
+
+---
+
+## 17. Suggested Theme File Organization
+
+Use a Shopify theme structure that is easy to import and maintain.
+A recommended organization is below. Adapt only if the target theme architecture demands it.
+
+### 17.1 Templates
+Create templates or JSON templates for:
+- Hat Designer page
+- Find Your Hat page
+
+### 17.2 Sections / snippets
+Use sections/snippets for:
+- hat preview renderer
+- color selector
+- dropdown selector group
+- quiz question renderer
+- quiz result card/view
+
+### 17.3 Assets
+Include:
+- crown assets
+- brim assets
+- band assets
+- Broadmoor logo asset for export use
+- JS for compositing, state management, quiz logic, and export
+- CSS for styling
+
+### 17.4 Data/config
+Use a clear configuration layer for:
+- available part lists
+- UI display labels
+- quiz questions
+- answer mappings
+- result definitions
+- baseline build mappings
+
+This configuration should be easy to edit without rewriting core logic.
+
+---
+
+## 18. Required Data Structures
+
+Implement explicit structured data for:
+
+### 18.1 Part registry
+Each part should have at minimum:
+- internal ID
+- display label
+- asset path
+- category
+
+### 18.2 Color registry
+Each color should have at minimum:
+- internal ID
+- display label
+- tint parameters
+
+### 18.3 Quiz registry
+Store:
+- questions
+- answers
+- answer-to-archetype mapping
+- tie-breaker behavior
+
+### 18.4 Result registry
+Each result should define:
+- result key
+- display title
+- body copy
+- default build
+
+---
+
+## 19. Definition of Done
+
+The implementation is complete only when all of the following are true:
+
+### 19.1 Navigation
+- Hat Designer appears in the hamburger menu
+- Find Your Hat appears in the hamburger menu
+
+### 19.2 Hat Designer behavior
+- direct load defaults to Western Formal
+- quiz-origin loads the corresponding archetype design
+- quiz-origin message shows only when arriving from quiz
+- brim, crown, band, and color can all be changed
+- preview updates instantly
+- three dropdowns exist
+- color circles exist
+- selected color text updates correctly
+
+### 19.3 Quiz behavior
+- quiz contains exactly 8 questions
+- result scoring works correctly
+- tie-break logic works correctly
+- exactly one result is returned
+- the result matches the approved archetype structure
+
+### 19.4 Result handoff
+- Start My Custom Hat opens Hat Designer with the correct baseline design preloaded
+- Book Appointment routes correctly
+
+### 19.5 Share/export
+- Copy Share Link restores exact current state
+- Save PNG exports a 1078 x 1078 image
+- export filename is `custom_hat.png`
+- export includes neutral background
+- export includes Broadmoor logo in bottom-right
+
+### 19.6 Asset compositing
+- all part images stack cleanly from top-left origin
+- layer order is brim -> crown -> band
+- all combinations render
+
+### 19.7 Theme readiness
+- code is organized for Shopify theme import
+- baked-in assets are included
+- no missing dependencies prevent basic deployment
+
+---
+
+## 20. Final Implementation Notes for the Coding Bot
+
+1. Build this as a production-oriented Shopify theme enhancement, not as a disconnected demo.
+2. Use the existing Broadmoor Hat Co website as the visual reference for tone and brand fit.
+3. Favor deterministic configuration over hard-coded scattered logic.
+4. Keep the implementation simple, fast, and maintainable.
+5. Do not invent additional product behavior beyond what is specified here.
+6. Do not add extra features just because they are common in configurators.
+7. Respect the locked compositing rules and quiz-result mappings.
+8. Treat this document as the authoritative product and implementation specification.
+
