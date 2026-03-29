@@ -1,0 +1,52 @@
+{{ 'hat-tools.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hat-config.js' | asset_url }}" defer></script>
+<script src="{{ 'hat-designer.js' | asset_url }}" defer></script>
+
+<section class="bhc-section bhc-designer" data-hat-designer-root>
+  <h1 class="bhc-title">Hat Designer</h1>
+  <p class="bhc-intro">
+    Build your custom western hat by selecting your preferred brim, crown, band, and felt color. Your design updates instantly so you can compare styles, save your hat, and bring it into your appointment.
+  </p>
+
+  <p class="bhc-quiz-origin" data-quiz-origin-message hidden></p>
+
+  <div class="bhc-preview-wrap">
+    <canvas id="bhc-hat-preview" width="1078" height="1078" aria-label="Assembled hat preview"></canvas>
+  </div>
+
+  <div class="bhc-controls">
+    <div>
+      <h2>Choose a Felt Color</h2>
+      <div class="bhc-color-row" data-color-options></div>
+      <p class="bhc-selected-color" data-selected-color>Selected color: Black</p>
+    </div>
+
+    <label>
+      <span>Choose a Brim</span>
+      <select data-part-select="brim"></select>
+    </label>
+
+    <label>
+      <span>Choose a Crown</span>
+      <select data-part-select="crown"></select>
+    </label>
+
+    <label>
+      <span>Choose a Band</span>
+      <select data-part-select="band"></select>
+    </label>
+
+    <div class="bhc-actions">
+      <a class="bhc-button" data-book-appointment href="https://broadmoorhatco.com/pages/appointments">Book Appointment</a>
+      <button class="bhc-button" type="button" data-save-png>Save PNG</button>
+      <button class="bhc-button bhc-button-outline" type="button" data-copy-share>Copy Share Link</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hat Designer Main",
+  "settings": []
+}
+{% endschema %}

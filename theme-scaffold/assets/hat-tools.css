@@ -1,0 +1,46 @@
+.bhc-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 16px 56px;
+  color: #201813;
+}
+
+.bhc-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px; }
+.bhc-intro { max-width: 70ch; line-height: 1.5; }
+.bhc-helper { opacity: .8; margin-top: 8px; }
+.bhc-preview-wrap { margin: 24px 0; background: #f5f2ee; border-radius: 8px; padding: 12px; }
+#bhc-hat-preview { width: 100%; height: auto; display: block; }
+.bhc-controls { display: grid; gap: 14px; }
+.bhc-color-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+.bhc-color-dot {
+  width: 34px;
+  height: 34px;
+  border: 2px solid #c6b39f;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.bhc-color-dot.is-active { outline: 2px solid #2b1a12; outline-offset: 2px; }
+.bhc-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.bhc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 6px;
+  border: 1px solid #2b1a12;
+  background: #2b1a12;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bhc-button-outline { background: transparent; color: #2b1a12; }
+.bhc-answer-grid { display: grid; gap: 10px; margin-top: 14px; }
+.bhc-answer {
+  text-align: left;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #d6c8bb;
+  border-radius: 6px;
+  cursor: pointer;
+}
