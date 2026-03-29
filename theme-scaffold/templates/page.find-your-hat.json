@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "find-your-hat-main",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
