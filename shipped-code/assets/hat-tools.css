@@ -1,17 +1,21 @@
 /* =============================================================
    Broadmoor Hat Co — Hat Tools Stylesheet
    Shared styles: Hat Designer + Find Your Hat pages.
+   Matches broadmoorhatco.com: Oswald headings, neutral grey
+   palette, outlined square-corner buttons.
    ============================================================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
+
 :root {
-  --bhc-ink:       #2b1a12;
-  --bhc-ink-mid:   #5a3e2b;
-  --bhc-muted:     #7a6b5e;
-  --bhc-bg:        #f5f2ee;
+  --bhc-ink:       #1a1a1a;
+  --bhc-ink-mid:   #555555;
+  --bhc-muted:     #888888;
+  --bhc-bg:        #f0f0f0;
   --bhc-surface:   #ffffff;
-  --bhc-border:    #d6c8bb;
-  --bhc-border-lt: #ece4da;
-  --bhc-accent-lt: #f0e9e1;
+  --bhc-border:    #e0e0e0;
+  --bhc-border-lt: #ebebeb;
+  --bhc-accent-lt: #f0f0f0;
 }
 
 /* ── Page wrapper ── */
@@ -25,11 +29,13 @@
 
 /* ── Typography ── */
 .bhc-title {
+  font-family: 'Oswald', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   margin: 0 0 14px;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 .bhc-intro {
   max-width: 62ch;
@@ -39,9 +45,9 @@
   font-size: 1rem;
 }
 .bhc-quiz-origin {
-  background: var(--bhc-accent-lt);
+  background: var(--bhc-surface);
   border: 1px solid var(--bhc-border);
-  border-radius: 6px;
+  border-radius: 0;
   padding: 10px 16px;
   font-size: 0.88rem;
   color: var(--bhc-ink-mid);
@@ -51,9 +57,8 @@
 
 /* ── Hat preview canvas ── */
 .bhc-preview-wrap {
-  background: var(--bhc-bg);
-  border-radius: 12px;
-  border: 1px solid var(--bhc-border-lt);
+  background: var(--bhc-surface);
+  border: 1px solid var(--bhc-border);
   padding: 16px;
   margin: 0 0 28px;
   display: flex;
@@ -66,18 +71,18 @@
   max-width: 480px;
   height: auto;
   display: block;
-  border-radius: 6px;
 }
 
 /* ── Controls layout ── */
 .bhc-controls { display: grid; gap: 22px; }
 
 .bhc-control-label {
+  font-family: 'Oswald', sans-serif;
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bhc-muted);
+  color: var(--bhc-ink);
   margin: 0 0 8px;
   display: block;
 }
@@ -118,9 +123,9 @@
   font-family: inherit;
   padding: 10px 36px 10px 12px;
   border: 1.5px solid var(--bhc-border);
-  border-radius: 6px;
+  border-radius: 0;
   background: var(--bhc-surface);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232b1a12' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1a1a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   color: var(--bhc-ink);
@@ -141,26 +146,34 @@
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0 20px;
-  border-radius: 6px;
-  border: 1.5px solid var(--bhc-ink);
+  padding: 0 24px;
+  border-radius: 0;
+  border: 2px solid var(--bhc-ink);
   background: var(--bhc-ink);
   color: #fff;
   font-size: 0.9rem;
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-  letter-spacing: 0.01em;
-  transition: opacity 0.15s;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, color 0.15s;
 }
-.bhc-button:hover { opacity: 0.82; }
+.bhc-button:hover {
+  background: transparent;
+  color: var(--bhc-ink);
+  opacity: 1;
+}
 .bhc-button-outline {
   background: transparent;
   color: var(--bhc-ink);
 }
-.bhc-button-outline:hover { background: var(--bhc-accent-lt); opacity: 1; }
+.bhc-button-outline:hover {
+  background: var(--bhc-ink);
+  color: #fff;
+  opacity: 1;
+}
 
 /* ── Quiz: start screen ── */
 .bhc-helper {
@@ -179,15 +192,13 @@
 }
 .bhc-progress-track {
   flex: 1;
-  height: 4px;
+  height: 3px;
   background: var(--bhc-border-lt);
-  border-radius: 2px;
   overflow: hidden;
 }
 .bhc-progress-fill {
   height: 100%;
   background: var(--bhc-ink);
-  border-radius: 2px;
   transition: width 0.3s ease;
 }
 .bhc-progress-label {
@@ -198,10 +209,13 @@
 
 /* ── Quiz: question & answers ── */
 .bhc-question-prompt {
-  font-size: 1.05rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.15rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   margin: 0 0 16px;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 .bhc-answer-grid { display: grid; gap: 10px; margin: 0 0 8px; }
 .bhc-answer {
@@ -209,7 +223,7 @@
   padding: 13px 16px;
   background: var(--bhc-surface);
   border: 1.5px solid var(--bhc-border);
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   font: inherit;
   font-size: 0.95rem;
@@ -217,19 +231,23 @@
   line-height: 1.4;
   transition: border-color 0.15s, background 0.15s;
 }
-.bhc-answer:hover { border-color: var(--bhc-ink); background: var(--bhc-accent-lt); }
+.bhc-answer:hover {
+  border-color: var(--bhc-ink);
+  background: var(--bhc-accent-lt);
+}
 
 /* ── Quiz: result card ── */
 .bhc-result-card {
   background: var(--bhc-surface);
   border: 1px solid var(--bhc-border);
-  border-radius: 10px;
   padding: 28px 24px;
 }
 .bhc-result-title {
-  font-size: 1.6rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   margin: 0 0 12px;
 }
 .bhc-result-body {
