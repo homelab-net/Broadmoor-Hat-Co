@@ -14,7 +14,6 @@
   const W      = canvas.width;
   const H      = canvas.height;
 
-  // ── Image cache ──────────────────────────────────────────────────
   const cache = {};
 
   function loadImage(asset) {
@@ -34,7 +33,6 @@
     [...parts.brim, ...parts.crown, ...parts.band].forEach(p => loadImage(p.asset));
   }
 
-  // ── State ────────────────────────────────────────────────────────
   const state = resolveInitialState();
 
   function resolveInitialState() {
@@ -65,7 +63,6 @@
     return { ...def, origin: 'direct', result: 'western_formal' };
   }
 
-  // ── Boot ─────────────────────────────────────────────────────────
   preloadAll();
 
   const bookLink = root.querySelector('[data-book-appointment]');
@@ -119,7 +116,7 @@
 
   function syncUiFromState() {
     ['brim', 'crown', 'band'].forEach(k => {
-      const sel = root.querySelector('[data-part-select="' + k + '"]');
+      const sel = root.querySelector('[data-part-select="' + k + '"]");
       if (sel) sel.value = state[k];
     });
     const row  = root.querySelector('[data-color-options]');
@@ -135,7 +132,6 @@
     }
   }
 
-  // ── Canvas rendering ─────────────────────────────────────────────
   function renderPreview() {
     const colorObj  = colors.find(c => c.id === state.color) || colors[0];
     const brimPart  = parts.brim.find(p => p.id === state.brim)   || parts.brim[0];
@@ -151,22 +147,27 @@
       if (brimImg)  drawTinted(ctx, brimImg,  colorObj);
       if (crownImg) drawTinted(ctx, crownImg, colorObj);
       if (bandImg)  ctx.drawImage(bandImg, 0, 0, W, H);
-      if (!brimImg && !crownImg && !bandImg) drawPlaceholder(colorObj, brimPart, crownPart, bandPart);
+      if (!brimImg && !crownImg && !bandImg) drawPlaceholder(brimPart, crownPart, bandPart);
     });
   }
 
   /**
-   * Tint a hat part using greyscale + multiply blend.
-   * Plain grayscale(1) preserves the full tonal range of the source
-   * image so detail and texture remain visible after tinting.
-   * tintHex null = draw greyscale only (no colour overlay).
+   * Tint a hat part using greyscale + optional filterSuffix + multiply blend.
+   *
+   * filterSuffix (on colorObj) is applied after grayscale(1) to normalise
+   * cross-part luminance before tinting. Used by white and light_charcoal:
+   *   contrast() compresses all parts to the same tonal mid-range so crown
+   *   and brim match regardless of their original exposure.
+   *   brightness() then lifts the normalised result to the target lightness.
+   *
+   * tintHex null = no multiply overlay (greyscale + filter only).
    */
   function drawTinted(targetCtx, img, colorObj) {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    oc.filter = 'grayscale(1)';
+    oc.filter = 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 
@@ -182,19 +183,18 @@
     targetCtx.drawImage(off, 0, 0);
   }
 
-  function drawPlaceholder(colorObj, brimPart, crownPart, bandPart) {
-    ctx.fillStyle = '#f2ede6';
+  function drawPlaceholder(brimPart, crownPart, bandPart) {
+    ctx.fillStyle = '#f0f0f0';
     ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = '#888';
-    ctx.font = 'bold 42px sans-serif';
-    ctx.fillText('Assets loading…', 80, 280);
-    ctx.font = '32px sans-serif';
-    ctx.fillText('Brim: '  + brimPart.label,  80, 400);
-    ctx.fillText('Crown: ' + crownPart.label, 80, 460);
-    ctx.fillText('Band: '  + bandPart.label,  80, 520);
+    ctx.font = 'bold 36px sans-serif';
+    ctx.fillText('Loading assets…', 60, 260);
+    ctx.font = '28px sans-serif';
+    ctx.fillText('Brim: '  + brimPart.label,  60, 380);
+    ctx.fillText('Crown: ' + crownPart.label, 60, 430);
+    ctx.fillText('Band: '  + bandPart.label,  60, 480);
   }
 
-  // ── PNG export ───────────────────────────────────────────────────
   function exportPng() {
     const exp  = document.createElement('canvas');
     exp.width  = 1078; exp.height = 1078;
@@ -218,7 +218,6 @@
     a.click();
   }
 
-  // ── Actions ──────────────────────────────────────────────────────
   function setupActions() {
     const copyBtn = root.querySelector('[data-copy-share]');
     const pngBtn  = root.querySelector('[data-save-png]');
@@ -236,7 +235,6 @@
     if (pngBtn) pngBtn.addEventListener('click', exportPng);
   }
 
-  // ── URL state ────────────────────────────────────────────────────
   function encodeState() {
     return new URLSearchParams({
       origin: state.origin, result: state.result,

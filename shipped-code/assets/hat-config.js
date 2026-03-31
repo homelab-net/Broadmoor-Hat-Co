@@ -11,16 +11,19 @@ window.BHC_HAT_CONFIG = {
   canvasSize: 1078,
 
   /* ── Felt colors ───────────────────────────────────────────────────
-     hex:     swatch color shown in the UI
-     tintHex: used for canvas multiply-blend tinting over the greyscale
-              base image. null = no tinting (draws greyscale as-is).
+     hex:          swatch color shown in the UI
+     tintHex:      multiply-blend color applied over greyscale.
+                   null = greyscale only (no colour overlay).
+     filterSuffix: optional extra CSS filter appended after grayscale(1).
+                   Used to normalise cross-part luminance and set
+                   brightness for light colours (white, charcoal).
   */
   colors: [
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
     { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
-    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: '#9e9e9e' },
-    { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: '#f8f8f8' }
+    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: null, filterSuffix: 'contrast(0.5) brightness(1.25)' },
+    { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: null, filterSuffix: 'contrast(0.35) brightness(2.8)'  }
   ],
 
   /* ── Part registry ─────────────────────────────────────────────────
@@ -28,9 +31,6 @@ window.BHC_HAT_CONFIG = {
      label:    customer-facing display label
      asset:    filename in Shopify theme assets folder
      category: 'brim' | 'crown' | 'band'
-
-     Asset filenames match prototype/hat-finder-2.0/assets/ exactly.
-     crown_cattleman maps to crown_wide_cattleman.png (closest available).
   */
   parts: {
     brim: [
@@ -59,9 +59,6 @@ window.BHC_HAT_CONFIG = {
     ]
   },
 
-  /* ── Quiz archetypes & result definitions ──────────────────────────
-     build: default hat loaded in Hat Designer for this result.
-  */
   resultKeys: ['western_formal', 'everyday_classic', 'bold_statement', 'rugged_traditional'],
   tieBreakerQuestionOrder: [1, 7, 8],
 
@@ -92,12 +89,6 @@ window.BHC_HAT_CONFIG = {
     }
   },
 
-  /* ── Quiz questions ────────────────────────────────────────────────
-     A = western_formal
-     B = everyday_classic
-     C = bold_statement
-     D = rugged_traditional
-  */
   quiz: [
     { id: 1, prompt: 'What are you most likely wearing this hat for?', answers: [
       { id: 'A', text: 'Weddings, formal events, or elevated occasions', result: 'western_formal' },
