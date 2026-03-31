@@ -116,7 +116,7 @@
 
   function syncUiFromState() {
     ['brim', 'crown', 'band'].forEach(k => {
-      const sel = root.querySelector('[data-part-select="' + k + '"]");
+      const sel = root.querySelector('[data-part-select="' + k + '"]');
       if (sel) sel.value = state[k];
     });
     const row  = root.querySelector('[data-color-options]');
