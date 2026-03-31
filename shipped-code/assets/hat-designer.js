@@ -154,27 +154,34 @@
       loadImage(bandPart.asset)
     ]).then(([brimImg, crownImg, bandImg]) => {
       ctx.clearRect(0, 0, W, H);
-      // Layer order per spec §5.3: brim (bottom) → crown → band (top)
+      // Layer order: brim (bottom) → crown → band (top)
       if (brimImg)  drawTinted(ctx, brimImg,  colorObj);
       if (crownImg) drawTinted(ctx, crownImg, colorObj);
-      // Band uses original colour — no tinting per spec
+      // Band uses original colour — no tinting
       if (bandImg)  ctx.drawImage(bandImg, 0, 0, W, H);
       if (!brimImg && !crownImg && !bandImg) drawPlaceholder(colorObj, brimPart, crownPart, bandPart);
     });
   }
 
   /**
-   * Tint a hat part image using greyscale + multiply blend.
-   * Brim and crown only. Preserves texture/shading (spec §6.2).
-   * tintHex null (silverbelly) = draw greyscale, no colour overlay.
+   * Tint a hat part image using greyscale + luminance-normalize + multiply blend.
+   *
+   * Different PNG parts can have different base luminance levels (e.g. brim shot
+   * brighter than crown). The brightness/contrast normalization in the greyscale
+   * step brings all parts to a consistent midtone range so they colour-match
+   * across the full palette, especially for light colours (white, charcoal).
+   *
+   * tintHex null = draw normalized greyscale only, no colour overlay.
    */
   function drawTinted(targetCtx, img, colorObj) {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    // Step 1: greyscale version (desaturates base image)
-    oc.filter = 'grayscale(1)';
+    // Step 1: greyscale + normalize luminance so all parts share a consistent
+    // tonal baseline. brightness(1.12) lifts shadows; contrast(0.88) compresses
+    // the range so no part looks washed-out or muddy against another.
+    oc.filter = 'grayscale(1) brightness(1.12) contrast(0.88)';
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 
@@ -210,14 +217,14 @@
     exp.width    = 1078; exp.height = 1078;
     const ectx   = exp.getContext('2d');
 
-    // Neutral background (spec §12.3)
+    // Neutral background
     ectx.fillStyle = '#f5f2ee';
     ectx.fillRect(0, 0, 1078, 1078);
 
     // Copy current composited preview
     ectx.drawImage(canvas, 0, 0);
 
-    // Branding: bottom-right corner (spec §12.4)
+    // Branding: bottom-right corner
     const brand = 'BROADMOOR HAT CO';
     ectx.font = 'bold 22px Georgia, serif';
     const tw  = ectx.measureText(brand).width;
