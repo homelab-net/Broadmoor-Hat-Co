@@ -1,0 +1,246 @@
+/* =============================================================
+   Broadmoor Hat Co — Hat Tools Stylesheet
+   Shared styles: Hat Designer + Find Your Hat pages.
+   ============================================================= */
+
+:root {
+  --bhc-ink:       #2b1a12;
+  --bhc-ink-mid:   #5a3e2b;
+  --bhc-muted:     #7a6b5e;
+  --bhc-bg:        #f5f2ee;
+  --bhc-surface:   #ffffff;
+  --bhc-border:    #d6c8bb;
+  --bhc-border-lt: #ece4da;
+  --bhc-accent-lt: #f0e9e1;
+}
+
+/* ── Page wrapper ── */
+.bhc-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 72px;
+  color: var(--bhc-ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Typography ── */
+.bhc-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  line-height: 1.15;
+}
+.bhc-intro {
+  max-width: 62ch;
+  line-height: 1.65;
+  color: var(--bhc-ink-mid);
+  margin: 0 0 28px;
+  font-size: 1rem;
+}
+.bhc-quiz-origin {
+  background: var(--bhc-accent-lt);
+  border: 1px solid var(--bhc-border);
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  color: var(--bhc-ink-mid);
+  margin: 0 0 20px;
+  display: block;
+}
+
+/* ── Hat preview canvas ── */
+.bhc-preview-wrap {
+  background: var(--bhc-bg);
+  border-radius: 12px;
+  border: 1px solid var(--bhc-border-lt);
+  padding: 16px;
+  margin: 0 0 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+}
+#bhc-hat-preview {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* ── Controls layout ── */
+.bhc-controls { display: grid; gap: 22px; }
+
+.bhc-control-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--bhc-muted);
+  margin: 0 0 8px;
+  display: block;
+}
+
+/* ── Color dots ── */
+.bhc-color-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+}
+.bhc-color-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--bhc-border);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.bhc-color-dot:hover { transform: scale(1.1); }
+.bhc-color-dot.is-active {
+  box-shadow: 0 0 0 3px var(--bhc-ink);
+  transform: scale(1.1);
+}
+.bhc-selected-color {
+  font-size: 0.88rem;
+  color: var(--bhc-ink-mid);
+  margin: 0;
+  min-height: 1.4em;
+}
+
+/* ── Select controls ── */
+.bhc-select-group { display: grid; gap: 14px; }
+.bhc-select-group label { display: flex; flex-direction: column; gap: 6px; }
+.bhc-select-group select {
+  font-size: 0.95rem;
+  font-family: inherit;
+  padding: 10px 36px 10px 12px;
+  border: 1.5px solid var(--bhc-border);
+  border-radius: 6px;
+  background: var(--bhc-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232b1a12' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  color: var(--bhc-ink);
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.bhc-select-group select:focus { outline: 2px solid var(--bhc-ink); outline-offset: 2px; }
+
+/* ── Divider ── */
+.bhc-divider { border: none; border-top: 1px solid var(--bhc-border-lt); margin: 0; }
+
+/* ── Buttons ── */
+.bhc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.bhc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--bhc-ink);
+  background: var(--bhc-ink);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+}
+.bhc-button:hover { opacity: 0.82; }
+.bhc-button-outline {
+  background: transparent;
+  color: var(--bhc-ink);
+}
+.bhc-button-outline:hover { background: var(--bhc-accent-lt); opacity: 1; }
+
+/* ── Quiz: start screen ── */
+.bhc-helper {
+  font-size: 0.85rem;
+  color: var(--bhc-muted);
+  margin: 10px 0 0;
+  font-style: italic;
+}
+
+/* ── Quiz: progress bar ── */
+.bhc-quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+}
+.bhc-progress-track {
+  flex: 1;
+  height: 4px;
+  background: var(--bhc-border-lt);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bhc-progress-fill {
+  height: 100%;
+  background: var(--bhc-ink);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.bhc-progress-label {
+  font-size: 0.78rem;
+  color: var(--bhc-muted);
+  white-space: nowrap;
+}
+
+/* ── Quiz: question & answers ── */
+.bhc-question-prompt {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+.bhc-answer-grid { display: grid; gap: 10px; margin: 0 0 8px; }
+.bhc-answer {
+  text-align: left;
+  padding: 13px 16px;
+  background: var(--bhc-surface);
+  border: 1.5px solid var(--bhc-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--bhc-ink);
+  line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+}
+.bhc-answer:hover { border-color: var(--bhc-ink); background: var(--bhc-accent-lt); }
+
+/* ── Quiz: result card ── */
+.bhc-result-card {
+  background: var(--bhc-surface);
+  border: 1px solid var(--bhc-border);
+  border-radius: 10px;
+  padding: 28px 24px;
+}
+.bhc-result-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+.bhc-result-body {
+  line-height: 1.65;
+  color: var(--bhc-ink-mid);
+  margin: 0 0 24px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+  .bhc-section { padding: 24px 16px 52px; }
+  .bhc-actions { flex-direction: column; }
+  .bhc-button { justify-content: center; }
+}
