@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your Hat Preview — Broadmoor Hat Co</title>
+  <style>
+:root {
+  --bhc-ink:       #2b1a12;
+  --bhc-ink-mid:   #5a3e2b;
+  --bhc-muted:     #7a6b5e;
+  --bhc-bg:        #f5f2ee;
+  --bhc-surface:   #ffffff;
+  --bhc-border:    #d6c8bb;
+  --bhc-border-lt: #ece4da;
+  --bhc-accent-lt: #f0e9e1;
+}
+
+body { margin: 0; background: var(--bhc-bg); }
+
+.bhc-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 72px;
+  color: var(--bhc-ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+.bhc-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  line-height: 1.15;
+}
+.bhc-intro {
+  max-width: 62ch;
+  line-height: 1.65;
+  color: var(--bhc-ink-mid);
+  margin: 0 0 28px;
+  font-size: 1rem;
+}
+.bhc-helper {
+  font-size: 0.85rem;
+  color: var(--bhc-muted);
+  margin: 10px 0 0;
+  font-style: italic;
+}
+.bhc-quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+}
+.bhc-progress-track {
+  flex: 1;
+  height: 4px;
+  background: var(--bhc-border-lt);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bhc-progress-fill {
+  height: 100%;
+  background: var(--bhc-ink);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.bhc-progress-label {
+  font-size: 0.78rem;
+  color: var(--bhc-muted);
+  white-space: nowrap;
+}
+.bhc-question-prompt {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+.bhc-answer-grid { display: grid; gap: 10px; margin: 0 0 8px; }
+.bhc-answer {
+  text-align: left;
+  padding: 13px 16px;
+  background: var(--bhc-surface);
+  border: 1.5px solid var(--bhc-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--bhc-ink);
+  line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+}
+.bhc-answer:hover { border-color: var(--bhc-ink); background: var(--bhc-accent-lt); }
+.bhc-result-card {
+  background: var(--bhc-surface);
+  border: 1px solid var(--bhc-border);
+  border-radius: 10px;
+  padding: 28px 24px;
+}
+.bhc-result-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+.bhc-result-body {
+  line-height: 1.65;
+  color: var(--bhc-ink-mid);
+  margin: 0 0 24px;
+}
+.bhc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.bhc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--bhc-ink);
+  background: var(--bhc-ink);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+}
+.bhc-button:hover { opacity: 0.82; }
+.bhc-button-outline {
+  background: transparent;
+  color: var(--bhc-ink);
+}
+.bhc-button-outline:hover { background: var(--bhc-accent-lt); opacity: 1; }
+@media (max-width: 540px) {
+  .bhc-section { padding: 24px 16px 52px; }
+  .bhc-actions { flex-direction: column; }
+  .bhc-button { justify-content: center; }
+}
+  </style>
+</head>
+<body>
+
+<div class="bhc-section" data-find-your-hat-root
+     data-asset-base="https://raw.githubusercontent.com/homelab-net/Broadmoor-Hat-Co/main/prototype/hat-finder-2.0/assets/">
+
+  <h1 class="bhc-title">Find Your Hat</h1>
+  <p class="bhc-intro">Answer 8 quick questions and we’ll match you to your ideal hat style, then open it in the designer so you can make it your own.</p>
+
+  <div data-quiz-start>
+    <div class="bhc-actions">
+      <button type="button" class="bhc-button" data-start-quiz>Find My Hat</button>
+    </div>
+    <p class="bhc-helper">Takes about 2 minutes &mdash; no account required.</p>
+  </div>
+
+  <div data-quiz-question hidden></div>
+  <div data-quiz-result hidden></div>
+
+</div>
+
+<script>
+window.BHC_HAT_CONFIG = {
+  appointmentUrl:   'https://broadmoorhatco.com/pages/appointments',
+  designerPagePath: 'hat-designer.html',
+  canvasSize: 1078,
+  colors: [
+    { id: 'pecan',       label: 'Pecan',       hex: '#7A4B2A', tintHex: '#7a4b2a' },
+    { id: 'black',       label: 'Black',       hex: '#101010', tintHex: '#1a1a1a' },
+    { id: 'chocolate',   label: 'Chocolate',   hex: '#4B2E22', tintHex: '#5a3020' },
+    { id: 'silverbelly', label: 'Silverbelly', hex: '#C8BFAA', tintHex: null      },
+    { id: 'white',       label: 'White',       hex: '#F0ECE5', tintHex: '#f0ece5' }
+  ],
+  parts: { brim: [], crown: [], band: [] },
+  resultKeys: ['western_formal', 'everyday_classic', 'bold_statement', 'rugged_traditional'],
+  tieBreakerQuestionOrder: [1, 7, 8],
+  results: {
+    western_formal:     { key: 'western_formal',     title: 'Western Formal',     body: 'Your answers pointed toward a polished, elevated western style with clean lines and a timeless presence. This result is designed for weddings, formal events, and dress-forward occasions where you want your hat to feel refined, intentional, and classic.',         build: { color: 'black',       crown: 'crown_cattleman',      brim: 'brim_george', band: 'band_leather'   } },
+    everyday_classic:   { key: 'everyday_classic',   title: 'Everyday Classic',   body: 'Your answers leaned toward a versatile western style that feels natural in almost any setting. This result is built around balance, wearability, and timeless character, giving you a custom hat that feels easy to wear while still distinctly western.',              build: { color: 'pecan',       crown: 'crown_round_top',      brim: 'brim_george', band: 'band_horsehair' } },
+    bold_statement:     { key: 'bold_statement',     title: 'Bold Statement',     body: 'Your answers showed a preference for individuality, confidence, and a stronger visual presence. This result starts with a more distinctive western profile that stands out in a crowd while still feeling grounded in premium craftsmanship.',                        build: { color: 'silverbelly', crown: 'crown_gus',            brim: 'brim_low',    band: 'band_beaded'   } },
+    rugged_traditional: { key: 'rugged_traditional', title: 'Rugged Traditional', body: 'Your answers aligned with a heritage-driven western style rooted in authenticity, grit, and tradition. This result reflects a stronger traditional character with a practical, grounded look inspired by classic western wear.',                                      build: { color: 'chocolate',   crown: 'crown_wide_cattleman', brim: 'brim_flat',   band: 'band_leather'  } }
+  },
+  quiz: [
+    { id: 1, prompt: 'What are you most likely wearing this hat for?', answers: [
+      { id: 'A', text: 'Weddings, formal events, or elevated occasions', result: 'western_formal' },
+      { id: 'B', text: 'A little bit of everything',                     result: 'everyday_classic' },
+      { id: 'C', text: 'Making a statement and standing out',             result: 'bold_statement' },
+      { id: 'D', text: 'Everyday western wear, ranch, or heritage style', result: 'rugged_traditional' }
+    ]},
+    { id: 2, prompt: 'What kind of first impression do you want your hat to give?', answers: [
+      { id: 'A', text: 'Polished and refined',        result: 'western_formal' },
+      { id: 'B', text: 'Timeless and easy to wear',   result: 'everyday_classic' },
+      { id: 'C', text: 'Confident and unforgettable', result: 'bold_statement' },
+      { id: 'D', text: 'Authentic and grounded',      result: 'rugged_traditional' }
+    ]},
+    { id: 3, prompt: 'Which overall look feels most like you?', answers: [
+      { id: 'A', text: 'Clean and elevated',       result: 'western_formal' },
+      { id: 'B', text: 'Classic and versatile',    result: 'everyday_classic' },
+      { id: 'C', text: 'Bold and fashion-forward', result: 'bold_statement' },
+      { id: 'D', text: 'Traditional and rugged',   result: 'rugged_traditional' }
+    ]},
+    { id: 4, prompt: 'How much attention do you want your hat to draw?', answers: [
+      { id: 'A', text: 'Subtle and tasteful',         result: 'western_formal' },
+      { id: 'B', text: 'Noticeable, but balanced',    result: 'everyday_classic' },
+      { id: 'C', text: 'A strong visual statement',   result: 'bold_statement' },
+      { id: 'D', text: 'More functional than flashy', result: 'rugged_traditional' }
+    ]},
+    { id: 5, prompt: 'What best matches your wardrobe?', answers: [
+      { id: 'A', text: 'Dress clothes, tailored looks, and formal westernwear', result: 'western_formal' },
+      { id: 'B', text: 'Denim, boots, and everyday staples',                   result: 'everyday_classic' },
+      { id: 'C', text: 'Standout outfits and elevated styling',                result: 'bold_statement' },
+      { id: 'D', text: 'Workwear, heritage westernwear, and durable basics',   result: 'rugged_traditional' }
+    ]},
+    { id: 6, prompt: 'Which shape direction appeals to you most?', answers: [
+      { id: 'A', text: 'Sleek and refined',      result: 'western_formal' },
+      { id: 'B', text: 'Balanced and classic',   result: 'everyday_classic' },
+      { id: 'C', text: 'Sharp and striking',     result: 'bold_statement' },
+      { id: 'D', text: 'Traditional and sturdy', result: 'rugged_traditional' }
+    ]},
+    { id: 7, prompt: 'What matters most in your custom hat?', answers: [
+      { id: 'A', text: 'Looking elevated for important occasions',                    result: 'western_formal' },
+      { id: 'B', text: 'Having one hat that works for almost everything',             result: 'everyday_classic' },
+      { id: 'C', text: 'Creating something unique',                                  result: 'bold_statement' },
+      { id: 'D', text: 'Wearing something authentic and rooted in western tradition', result: 'rugged_traditional' }
+    ]},
+    { id: 8, prompt: 'Which outcome sounds best to you?', answers: [
+      { id: 'A', text: 'A refined western hat for elevated moments',        result: 'western_formal' },
+      { id: 'B', text: 'A go-to western hat I can wear anywhere',           result: 'everyday_classic' },
+      { id: 'C', text: 'A standout custom hat with strong personality',     result: 'bold_statement' },
+      { id: 'D', text: 'A traditional western hat with grit and character', result: 'rugged_traditional' }
+    ]}
+  ]
+};
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  const root = document.querySelector('[data-find-your-hat-root]');
+  if (!root || !window.BHC_HAT_CONFIG) return;
+
+  const { quiz, results, resultKeys, tieBreakerQuestionOrder, designerPagePath, appointmentUrl } = window.BHC_HAT_CONFIG;
+
+  const startWrap    = root.querySelector('[data-quiz-start]');
+  const questionWrap = root.querySelector('[data-quiz-question]');
+  const resultWrap   = root.querySelector('[data-quiz-result]');
+  const startBtn     = root.querySelector('[data-start-quiz]');
+
+  const selections = [];
+
+  startBtn.addEventListener('click', () => {
+    startWrap.hidden = true;
+    renderQuestion(0);
+  });
+
+  function renderQuestion(index) {
+    const q   = quiz[index];
+    const pct = Math.round((index / quiz.length) * 100);
+    questionWrap.hidden   = false;
+    questionWrap.innerHTML =
+      '<div class="bhc-quiz-progress">' +
+        '<div class="bhc-progress-track"><div class="bhc-progress-fill" style="width:' + pct + '%"></div></div>' +
+        '<span class="bhc-progress-label">Question ' + (index + 1) + ' of ' + quiz.length + '</span>' +
+      '</div>' +
+      '<p class="bhc-question-prompt">' + q.prompt + '</p>' +
+      '<div class="bhc-answer-grid">' +
+        q.answers.map(a => '<button type="button" class="bhc-answer" data-answer-id="' + a.id + '">' + a.id + '. ' + a.text + '</button>').join('') +
+      '</div>';
+    questionWrap.querySelectorAll('[data-answer-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selections[index] = btn.getAttribute('data-answer-id');
+        if (index + 1 >= quiz.length) { questionWrap.hidden = true; renderResult(); }
+        else { renderQuestion(index + 1); }
+      });
+    });
+  }
+
+  function resolveWinner() {
+    const totals = Object.fromEntries(resultKeys.map(k => [k, 0]));
+    selections.forEach((answerId, i) => {
+      const answer = quiz[i].answers.find(a => a.id === answerId);
+      if (answer) totals[answer.result] += 1;
+    });
+    const high = Math.max(...Object.values(totals));
+    const tied = resultKeys.filter(k => totals[k] === high);
+    if (tied.length === 1) return tied[0];
+    for (const qNum of tieBreakerQuestionOrder) {
+      const answer = quiz[qNum - 1].answers.find(a => a.id === selections[qNum - 1]);
+      if (answer && tied.includes(answer.result)) return answer.result;
+    }
+    return 'everyday_classic';
+  }
+
+  function renderResult() {
+    const winner = resolveWinner();
+    const result = results[winner];
+    const build  = result.build;
+    const params = new URLSearchParams({ origin: 'quiz', result: winner, color: build.color, brim: build.brim, crown: build.crown, band: build.band });
+    const designerLink = designerPagePath + '?' + params.toString();
+    resultWrap.hidden   = false;
+    resultWrap.innerHTML =
+      '<div class="bhc-result-card">' +
+        '<h2 class="bhc-result-title">' + result.title + '</h2>' +
+        '<p class="bhc-result-body">' + result.body + '</p>' +
+        '<div class="bhc-actions">' +
+          '<a class="bhc-button" href="' + designerLink + '">Start My Custom Hat</a>' +
+          '<a class="bhc-button bhc-button-outline" href="' + appointmentUrl + '">Book Appointment</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+})();
+</script>
+
+</body>
+</html>
