@@ -13,14 +13,14 @@ window.BHC_HAT_CONFIG = {
   /* ── Felt colors ───────────────────────────────────────────────────
      hex:     swatch color shown in the UI
      tintHex: used for canvas multiply-blend tinting over the greyscale
-              base image. null = no tinting (silverbelly = base color).
+              base image. null = no tinting (draws greyscale as-is).
   */
   colors: [
-    { id: 'pecan',       label: 'Pecan',       hex: '#7A4B2A', tintHex: '#7a4b2a' },
-    { id: 'black',       label: 'Black',       hex: '#101010', tintHex: '#1a1a1a' },
-    { id: 'chocolate',   label: 'Chocolate',   hex: '#4B2E22', tintHex: '#5a3020' },
-    { id: 'silverbelly', label: 'Silverbelly', hex: '#C8BFAA', tintHex: null      },
-    { id: 'white',       label: 'White',       hex: '#F0ECE5', tintHex: '#f0ece5' }
+    { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
+    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#4a4a4a' },
+    { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
+    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: '#9e9e9e' },
+    { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: '#f8f8f8' }
   ],
 
   /* ── Part registry ─────────────────────────────────────────────────
@@ -82,7 +82,7 @@ window.BHC_HAT_CONFIG = {
       key:   'bold_statement',
       title: 'Bold Statement',
       body:  'Your answers showed a preference for individuality, confidence, and a stronger visual presence. This result starts with a more distinctive western profile that stands out in a crowd while still feeling grounded in premium craftsmanship.',
-      build: { color: 'silverbelly', crown: 'crown_gus', brim: 'brim_low', band: 'band_beaded' }
+      build: { color: 'light_charcoal', crown: 'crown_gus', brim: 'brim_low', band: 'band_beaded' }
     },
     rugged_traditional: {
       key:   'rugged_traditional',
