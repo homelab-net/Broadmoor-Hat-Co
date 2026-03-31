@@ -17,7 +17,7 @@ window.BHC_HAT_CONFIG = {
   */
   colors: [
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
-    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#4a4a4a' },
+    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
     { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: '#9e9e9e' },
     { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: '#f8f8f8' }

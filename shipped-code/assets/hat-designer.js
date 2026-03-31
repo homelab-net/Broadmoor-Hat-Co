@@ -6,15 +6,13 @@
 
   const { colors, parts, results, appointmentUrl } = window.BHC_HAT_CONFIG;
 
-  // Asset base URL injected by Liquid template via data-asset-base attribute.
-  // Trailing slash is normalised below.
-  const rawBase  = root.dataset.assetBase || '';
+  const rawBase   = root.dataset.assetBase || '';
   const assetBase = rawBase.endsWith('/') ? rawBase : rawBase + '/';
 
   const canvas = root.querySelector('#bhc-hat-preview');
   const ctx    = canvas.getContext('2d');
-  const W      = canvas.width;   // 1078 per spec
-  const H      = canvas.height;  // 1078 per spec
+  const W      = canvas.width;
+  const H      = canvas.height;
 
   // ── Image cache ──────────────────────────────────────────────────
   const cache = {};
@@ -32,12 +30,11 @@
     return cache[asset];
   }
 
-  // Preload all assets for snappy switching
   function preloadAll() {
     [...parts.brim, ...parts.crown, ...parts.band].forEach(p => loadImage(p.asset));
   }
 
-  // ── State ────────────────────────────────────────────────────
+  // ── State ────────────────────────────────────────────────────────
   const state = resolveInitialState();
 
   function resolveInitialState() {
@@ -68,7 +65,7 @@
     return { ...def, origin: 'direct', result: 'western_formal' };
   }
 
-  // ── Boot ─────────────────────────────────────────────────────
+  // ── Boot ─────────────────────────────────────────────────────────
   preloadAll();
 
   const bookLink = root.querySelector('[data-book-appointment]');
@@ -83,7 +80,6 @@
   setupActions();
   renderPreview();
 
-  // ── Quiz origin message ───────────────────────────────────────
   function setupQuizOriginMessage() {
     const msg = root.querySelector('[data-quiz-origin-message]');
     if (!msg) return;
@@ -93,7 +89,6 @@
     }
   }
 
-  // ── Select controls ──────────────────────────────────────────
   function mountSelect(kind, options) {
     const sel = root.querySelector('[data-part-select="' + kind + '"]');
     if (!sel) return;
@@ -106,7 +101,6 @@
     });
   }
 
-  // ── Color selector ─────────────────────────────────────────
   function mountColors() {
     const row = root.querySelector('[data-color-options]');
     if (!row) return;
@@ -141,7 +135,7 @@
     }
   }
 
-  // ── Canvas rendering ─────────────────────────────────────────
+  // ── Canvas rendering ─────────────────────────────────────────────
   function renderPreview() {
     const colorObj  = colors.find(c => c.id === state.color) || colors[0];
     const brimPart  = parts.brim.find(p => p.id === state.brim)   || parts.brim[0];
@@ -154,43 +148,32 @@
       loadImage(bandPart.asset)
     ]).then(([brimImg, crownImg, bandImg]) => {
       ctx.clearRect(0, 0, W, H);
-      // Layer order: brim (bottom) → crown → band (top)
       if (brimImg)  drawTinted(ctx, brimImg,  colorObj);
       if (crownImg) drawTinted(ctx, crownImg, colorObj);
-      // Band uses original colour — no tinting
       if (bandImg)  ctx.drawImage(bandImg, 0, 0, W, H);
       if (!brimImg && !crownImg && !bandImg) drawPlaceholder(colorObj, brimPart, crownPart, bandPart);
     });
   }
 
   /**
-   * Tint a hat part image using greyscale + luminance-normalize + multiply blend.
-   *
-   * Different PNG parts can have different base luminance levels (e.g. brim shot
-   * brighter than crown). The brightness/contrast normalization in the greyscale
-   * step brings all parts to a consistent midtone range so they colour-match
-   * across the full palette, especially for light colours (white, charcoal).
-   *
-   * tintHex null = draw normalized greyscale only, no colour overlay.
+   * Tint a hat part using greyscale + multiply blend.
+   * Plain grayscale(1) preserves the full tonal range of the source
+   * image so detail and texture remain visible after tinting.
+   * tintHex null = draw greyscale only (no colour overlay).
    */
   function drawTinted(targetCtx, img, colorObj) {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    // Step 1: greyscale + normalize luminance so all parts share a consistent
-    // tonal baseline. brightness(1.12) lifts shadows; contrast(0.88) compresses
-    // the range so no part looks washed-out or muddy against another.
-    oc.filter = 'grayscale(1) brightness(1.12) contrast(0.88)';
+    oc.filter = 'grayscale(1)';
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 
     if (colorObj.tintHex) {
-      // Step 2: multiply-blend target colour — tints while preserving luminance
       oc.globalCompositeOperation = 'multiply';
       oc.fillStyle = colorObj.tintHex;
       oc.fillRect(0, 0, W, H);
-      // Step 3: restore original alpha (clips tint to hat shape)
       oc.globalCompositeOperation = 'destination-in';
       oc.drawImage(img, 0, 0, W, H);
     }
@@ -211,20 +194,14 @@
     ctx.fillText('Band: '  + bandPart.label,  80, 520);
   }
 
-  // ── PNG export ───────────────────────────────────────────────
+  // ── PNG export ───────────────────────────────────────────────────
   function exportPng() {
-    const exp    = document.createElement('canvas');
-    exp.width    = 1078; exp.height = 1078;
-    const ectx   = exp.getContext('2d');
-
-    // Neutral background
+    const exp  = document.createElement('canvas');
+    exp.width  = 1078; exp.height = 1078;
+    const ectx = exp.getContext('2d');
     ectx.fillStyle = '#f5f2ee';
     ectx.fillRect(0, 0, 1078, 1078);
-
-    // Copy current composited preview
     ectx.drawImage(canvas, 0, 0);
-
-    // Branding: bottom-right corner
     const brand = 'BROADMOOR HAT CO';
     ectx.font = 'bold 22px Georgia, serif';
     const tw  = ectx.measureText(brand).width;
@@ -235,14 +212,13 @@
     ectx.fillRect(bx, by, tw + pad * 2, 38);
     ectx.fillStyle = '#ffffff';
     ectx.fillText(brand, bx + pad, by + 26);
-
     const a = document.createElement('a');
     a.download = 'custom_hat.png';
     a.href     = exp.toDataURL('image/png');
     a.click();
   }
 
-  // ── Actions ──────────────────────────────────────────────────
+  // ── Actions ──────────────────────────────────────────────────────
   function setupActions() {
     const copyBtn = root.querySelector('[data-copy-share]');
     const pngBtn  = root.querySelector('[data-save-png]');
@@ -260,7 +236,7 @@
     if (pngBtn) pngBtn.addEventListener('click', exportPng);
   }
 
-  // ── URL state ───────────────────────────────────────────────
+  // ── URL state ────────────────────────────────────────────────────
   function encodeState() {
     return new URLSearchParams({
       origin: state.origin, result: state.result,
