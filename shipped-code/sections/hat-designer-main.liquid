@@ -1,0 +1,97 @@
+{%- comment -%}
+  Hat Designer — Broadmoor Hat Co
+  Layout order per spec §7.6:
+    1. page title
+    2. intro text
+    3. quiz-origin message (quiz handoff only)
+    4. hat preview canvas (dominant visual)
+    5. color circles + selected color text
+    6. brim dropdown
+    7. crown dropdown
+    8. band dropdown
+    9. action buttons
+
+  Asset base URL is extracted from the Shopify CDN URL of hat-config.js
+  and passed to JavaScript via data-asset-base.
+{%- endcomment -%}
+
+{{ 'hat-tools.css' | asset_url | stylesheet_tag }}
+
+{%- assign _ref     = 'hat-config.js' | asset_url -%}
+{%- assign _parts   = _ref | split: 'hat-config.js' -%}
+{%- assign _base    = _parts | first -%}
+
+<script src="{{ 'hat-config.js' | asset_url }}" defer></script>
+<script src="{{ 'hat-designer.js' | asset_url }}" defer></script>
+
+<section
+  class="bhc-section"
+  data-hat-designer-root
+  data-asset-base="{{ _base }}"
+>
+  <h1 class="bhc-title">Hat Designer</h1>
+
+  <p class="bhc-intro">
+    Build your custom western hat by selecting your preferred brim, crown, band,
+    and felt color. Your design updates instantly so you can compare styles,
+    save your hat, and bring it into your appointment.
+  </p>
+
+  <!-- Quiz-origin message: shown only when arriving from Find Your Hat -->
+  <p class="bhc-quiz-origin" data-quiz-origin-message hidden></p>
+
+  <!-- Hat preview canvas (dominant visual per spec) -->
+  <div class="bhc-preview-wrap">
+    <canvas
+      id="bhc-hat-preview"
+      width="1078"
+      height="1078"
+      aria-label="Assembled hat preview"
+    ></canvas>
+  </div>
+
+  <div class="bhc-controls">
+
+    <!-- Color selector -->
+    <div>
+      <span class="bhc-control-label">Choose a Felt Color</span>
+      <div class="bhc-color-row" data-color-options></div>
+      <p class="bhc-selected-color" data-selected-color>Selected color: Black</p>
+    </div>
+
+    <hr class="bhc-divider" />
+
+    <!-- Part dropdowns -->
+    <div class="bhc-select-group">
+      <label>
+        <span class="bhc-control-label">Choose a Brim</span>
+        <select data-part-select="brim"></select>
+      </label>
+      <label>
+        <span class="bhc-control-label">Choose a Crown</span>
+        <select data-part-select="crown"></select>
+      </label>
+      <label>
+        <span class="bhc-control-label">Choose a Band</span>
+        <select data-part-select="band"></select>
+      </label>
+    </div>
+
+    <hr class="bhc-divider" />
+
+    <!-- Action buttons -->
+    <div class="bhc-actions">
+      <a class="bhc-button" data-book-appointment href="https://broadmoorhatco.com/pages/appointments">Book Appointment</a>
+      <button class="bhc-button bhc-button-outline" type="button" data-save-png>Save PNG</button>
+      <button class="bhc-button bhc-button-outline" type="button" data-copy-share>Copy Share Link</button>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hat Designer Main",
+  "settings": []
+}
+{% endschema %}

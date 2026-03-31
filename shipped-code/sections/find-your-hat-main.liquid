@@ -1,0 +1,41 @@
+{%- comment -%}
+  Find Your Hat — Broadmoor Hat Co
+  8-question style quiz → 4 archetypes → preloaded Hat Designer.
+  Spec: BROADMOOR_HAT_DESIGNER_AND_FIND_YOUR_HAT_IMPLEMENTATION_SPEC.txt §8
+{%- endcomment -%}
+
+{{ 'hat-tools.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hat-config.js' | asset_url }}" defer></script>
+<script src="{{ 'find-your-hat.js' | asset_url }}" defer></script>
+
+<section class="bhc-section" data-find-your-hat-root>
+
+  <h1 class="bhc-title">Find Your Hat</h1>
+
+  <p class="bhc-intro">
+    Not sure where to start? Answer a few quick questions and we’ll match you
+    with a custom western hat style that fits your look, lifestyle, and occasion.
+    From there, you can refine your design or book an appointment with
+    Broadmoor Hat Co.
+  </p>
+
+  <!-- Start screen -->
+  <div data-quiz-start>
+    <button type="button" class="bhc-button" data-start-quiz>Start the Quiz</button>
+    <p class="bhc-helper">8 quick questions &middot; personalized result &middot; preloaded hat design</p>
+  </div>
+
+  <!-- Active question (rendered by JS) -->
+  <div data-quiz-question hidden></div>
+
+  <!-- Result card (rendered by JS) -->
+  <div data-quiz-result hidden></div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Find Your Hat Main",
+  "settings": []
+}
+{% endschema %}

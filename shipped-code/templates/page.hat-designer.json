@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "hat-designer-main",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
