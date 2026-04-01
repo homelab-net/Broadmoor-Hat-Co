@@ -159,9 +159,13 @@
       comp.width  = W; comp.height = H;
       const cc    = comp.getContext('2d');
       // Layer order per spec §5.3: brim (bottom) → crown → band (top)
-      if (brimImg)  drawTinted(cc, brimImg,  colorObj);
-      if (crownImg) drawTinted(cc, crownImg, colorObj);
-      if (bandImg)  cc.drawImage(bandImg, 0, 0, W, H);
+      if (brimImg)  drawTinted(cc, brimImg,  colorObj, brimPart);
+      if (crownImg) drawTinted(cc, crownImg, colorObj, crownPart);
+      if (bandImg) {
+        if (bandPart.edgeBlur) { cc.filter = 'blur(' + bandPart.edgeBlur + 'px)'; }
+        cc.drawImage(bandImg, 0, 0, W, H);
+        cc.filter = 'none';
+      }
 
       // Background: linear gradient light top-left → dark bottom-right
       ctx.clearRect(0, 0, W, H);
@@ -191,13 +195,15 @@
    * Brim and crown only. Preserves texture/shading (spec §6.2).
    * tintHex null (silverbelly) = draw greyscale, no colour overlay.
    */
-  function drawTinted(targetCtx, img, colorObj) {
+  function drawTinted(targetCtx, img, colorObj, partConfig) {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    // Step 1: greyscale + optional brightness/contrast normalisation
-    oc.filter = 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
+    // Step 1: greyscale + optional edge-blur (for parts with non-anti-aliased edges)
+    //         + optional brightness/contrast normalisation
+    const blurPrefix = (partConfig && partConfig.edgeBlur) ? 'blur(' + partConfig.edgeBlur + 'px) ' : '';
+    oc.filter = blurPrefix + 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 

@@ -215,7 +215,7 @@ window.BHC_HAT_CONFIG = {
   canvasSize: 1078,
   colors: [
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
-    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
+    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#3a3a3a' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
     { id: 'light_charcoal',label: 'Light Charcoal',hex: '#B3B3B3', tintHex: '#b3b3b3' },
     { id: 'white',         label: 'White',         hex: '#FFFFFF', tintHex: null, filterSuffix: 'contrast(0.8) brightness(5)'     }
@@ -228,13 +228,13 @@ window.BHC_HAT_CONFIG = {
       { id: 'brim_flat',           label: 'Flat',           asset: 'brim_flat.png',           category: 'brim' },
       { id: 'brim_rolled',         label: 'Rolled',         asset: 'brim_rolled.png',         category: 'brim' },
       { id: 'brim_pointed',        label: 'Pointed',        asset: 'brim_pointed.png',        category: 'brim' },
-      { id: 'brim_halftaco',       label: 'Half Taco',      asset: 'crown_halftaco.png',      category: 'brim' }
+      { id: 'brim_halftaco',       label: 'Half Taco',      asset: 'crown_halftaco.png',      category: 'brim', edgeBlur: 1.5 }
     ],
     crown: [
       { id: 'crown_cattleman',      label: 'Cattleman',      asset: 'crown_wide_cattleman.png', category: 'crown' },
       { id: 'crown_round_top',      label: 'Round Top',      asset: 'crown_round.png',          category: 'crown' },
       { id: 'crown_gus',            label: 'Gus',            asset: 'crown_gus.png',            category: 'crown' },
-      { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown' },
+      { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown', edgeBlur: 1.5 },
       { id: 'crown_brick',          label: 'Brick',          asset: 'crown_brick.png',          category: 'crown' },
       { id: 'crown_clint',          label: 'Clint',          asset: 'crown_clint.png',          category: 'crown' },
       { id: 'crown_square',         label: 'Square Top',     asset: 'crown_square.png',         category: 'crown' },
@@ -245,8 +245,8 @@ window.BHC_HAT_CONFIG = {
       { id: 'band_horsehair',        label: 'Horsehair',       asset: 'band_horsehair.png',        category: 'band' },
       { id: 'band_beaded',           label: 'Beaded',          asset: 'band_bead.png',             category: 'band' },
       { id: 'band_horsehair_silver', label: 'Silver Horsehair',asset: 'band_horsehair_silver.png', category: 'band' },
-      { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band' },
-      { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band' }
+      { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band', edgeBlur: 1.5 },
+      { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band', edgeBlur: 1.5 }
     ]
   },
   resultKeys: ['western_formal', 'everyday_classic', 'bold_statement', 'rugged_traditional'],
@@ -415,9 +415,13 @@ window.BHC_HAT_CONFIG = {
       const comp  = document.createElement('canvas');
       comp.width  = W; comp.height = H;
       const cc    = comp.getContext('2d');
-      if (brimImg)  drawTinted(cc, brimImg,  colorObj);
-      if (crownImg) drawTinted(cc, crownImg, colorObj);
-      if (bandImg)  cc.drawImage(bandImg, 0, 0, W, H);
+      if (brimImg)  drawTinted(cc, brimImg,  colorObj, brimPart);
+      if (crownImg) drawTinted(cc, crownImg, colorObj, crownPart);
+      if (bandImg) {
+        if (bandPart.edgeBlur) { cc.filter = 'blur(' + bandPart.edgeBlur + 'px)'; }
+        cc.drawImage(bandImg, 0, 0, W, H);
+        cc.filter = 'none';
+      }
 
       // Background: linear gradient light top-left → dark bottom-right
       ctx.clearRect(0, 0, W, H);
@@ -442,12 +446,13 @@ window.BHC_HAT_CONFIG = {
     });
   }
 
-  function drawTinted(targetCtx, img, colorObj) {
+  function drawTinted(targetCtx, img, colorObj, partConfig) {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    oc.filter = 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
+    const blurPrefix = (partConfig && partConfig.edgeBlur) ? 'blur(' + partConfig.edgeBlur + 'px) ' : '';
+    oc.filter = blurPrefix + 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 

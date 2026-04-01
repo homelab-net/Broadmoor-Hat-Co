@@ -20,7 +20,7 @@ window.BHC_HAT_CONFIG = {
   */
   colors: [
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
-    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
+    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#3a3a3a' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
     { id: 'light_charcoal',label: 'Light Charcoal',hex: '#B3B3B3', tintHex: '#b3b3b3' },
     { id: 'white',         label: 'White',         hex: '#FFFFFF', tintHex: null, filterSuffix: 'contrast(0.8) brightness(5)'     }
@@ -40,13 +40,13 @@ window.BHC_HAT_CONFIG = {
       { id: 'brim_flat',           label: 'Flat',            asset: 'brim_flat.png',           category: 'brim' },
       { id: 'brim_rolled',         label: 'Rolled',          asset: 'brim_rolled.png',         category: 'brim' },
       { id: 'brim_pointed',        label: 'Pointed',         asset: 'brim_pointed.png',        category: 'brim' },
-      { id: 'brim_halftaco',       label: 'Half Taco',       asset: 'crown_halftaco.png',      category: 'brim' }
+      { id: 'brim_halftaco',       label: 'Half Taco',       asset: 'crown_halftaco.png',      category: 'brim', edgeBlur: 1.5 }
     ],
     crown: [
       { id: 'crown_cattleman',      label: 'Cattleman',      asset: 'crown_wide_cattleman.png', category: 'crown' },
       { id: 'crown_round_top',      label: 'Round Top',      asset: 'crown_round.png',          category: 'crown' },
       { id: 'crown_gus',            label: 'Gus',            asset: 'crown_gus.png',            category: 'crown' },
-      { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown' },
+      { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown', edgeBlur: 1.5 },
       { id: 'crown_brick',          label: 'Brick',          asset: 'crown_brick.png',          category: 'crown' },
       { id: 'crown_clint',          label: 'Clint',          asset: 'crown_clint.png',          category: 'crown' },
       { id: 'crown_square',         label: 'Square Top',     asset: 'crown_square.png',         category: 'crown' },
@@ -57,8 +57,8 @@ window.BHC_HAT_CONFIG = {
       { id: 'band_horsehair',        label: 'Horsehair',       asset: 'band_horsehair.png',        category: 'band' },
       { id: 'band_beaded',           label: 'Beaded',          asset: 'band_bead.png',             category: 'band' },
       { id: 'band_horsehair_silver', label: 'Silver Horsehair',asset: 'band_horsehair_silver.png', category: 'band' },
-      { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band' },
-      { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band' }
+      { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band', edgeBlur: 1.5 },
+      { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band', edgeBlur: 1.5 }
     ]
   },
 
