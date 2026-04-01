@@ -22,8 +22,8 @@ window.BHC_HAT_CONFIG = {
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
     { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
-    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: null, filterSuffix: 'contrast(0.5) brightness(1.25)' },
-    { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: null, filterSuffix: 'contrast(0.35) brightness(2.8)'  }
+    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#B3B3B3', tintHex: null, filterSuffix: 'brightness(1.5)'              },
+    { id: 'white',         label: 'White',         hex: '#FFFFFF', tintHex: null, filterSuffix: 'contrast(0.75) brightness(3.5)'  }
   ],
 
   /* ── Part registry ─────────────────────────────────────────────────
@@ -39,7 +39,8 @@ window.BHC_HAT_CONFIG = {
       { id: 'brim_low',            label: 'Low',             asset: 'brim_low.png',            category: 'brim' },
       { id: 'brim_flat',           label: 'Flat',            asset: 'brim_flat.png',           category: 'brim' },
       { id: 'brim_rolled',         label: 'Rolled',          asset: 'brim_rolled.png',         category: 'brim' },
-      { id: 'brim_pointed',        label: 'Pointed',         asset: 'brim_pointed.png',        category: 'brim' }
+      { id: 'brim_pointed',        label: 'Pointed',         asset: 'brim_pointed.png',        category: 'brim' },
+      { id: 'brim_halftaco',       label: 'Half Taco',       asset: 'crown_halftaco.png',      category: 'brim' }
     ],
     crown: [
       { id: 'crown_cattleman',      label: 'Cattleman',      asset: 'crown_wide_cattleman.png', category: 'crown' },
@@ -50,7 +51,6 @@ window.BHC_HAT_CONFIG = {
       { id: 'crown_brick',          label: 'Brick',          asset: 'crown_brick.png',          category: 'crown' },
       { id: 'crown_clint',          label: 'Clint',          asset: 'crown_clint.png',          category: 'crown' },
       { id: 'crown_square',         label: 'Square Top',     asset: 'crown_square.png',         category: 'crown' },
-      { id: 'crown_halftaco',       label: 'Half Taco',      asset: 'crown_halftaco.png',       category: 'crown' },
       { id: 'crown_puncher',        label: 'Puncher',        asset: 'crown_puncher.png',        category: 'crown' }
     ],
     band: [
