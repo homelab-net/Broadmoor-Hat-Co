@@ -153,12 +153,35 @@
       loadImage(crownPart.asset),
       loadImage(bandPart.asset)
     ]).then(([brimImg, crownImg, bandImg]) => {
-      ctx.clearRect(0, 0, W, H);
+      // Composite all hat layers onto a single offscreen canvas so the
+      // drop-shadow is cast by the whole hat shape, not each layer separately.
+      const comp  = document.createElement('canvas');
+      comp.width  = W; comp.height = H;
+      const cc    = comp.getContext('2d');
       // Layer order per spec §5.3: brim (bottom) → crown → band (top)
-      if (brimImg)  drawTinted(ctx, brimImg,  colorObj);
-      if (crownImg) drawTinted(ctx, crownImg, colorObj);
-      // Band uses original colour — no tinting per spec
-      if (bandImg)  ctx.drawImage(bandImg, 0, 0, W, H);
+      if (brimImg)  drawTinted(cc, brimImg,  colorObj);
+      if (crownImg) drawTinted(cc, crownImg, colorObj);
+      if (bandImg)  cc.drawImage(bandImg, 0, 0, W, H);
+
+      // Background: linear gradient light top-left → dark bottom-right
+      ctx.clearRect(0, 0, W, H);
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, '#e4e4e4');
+      grad.addColorStop(1, '#b8b8b8');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Drop shadow offset bottom-right = light source at top-left
+      ctx.shadowColor    = 'rgba(0,0,0,0.32)';
+      ctx.shadowBlur     = 38;
+      ctx.shadowOffsetX  = 18;
+      ctx.shadowOffsetY  = 22;
+      ctx.drawImage(comp, 0, 0);
+      ctx.shadowColor    = 'transparent';
+      ctx.shadowBlur     = 0;
+      ctx.shadowOffsetX  = 0;
+      ctx.shadowOffsetY  = 0;
+
       if (!brimImg && !crownImg && !bandImg) drawPlaceholder(colorObj, brimPart, crownPart, bandPart);
     });
   }
@@ -173,8 +196,8 @@
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
 
-    // Step 1: greyscale version (desaturates base image)
-    oc.filter = 'grayscale(1)';
+    // Step 1: greyscale + optional brightness/contrast normalisation
+    oc.filter = 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
 
