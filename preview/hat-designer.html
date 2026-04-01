@@ -4,21 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hat Designer Preview — Broadmoor Hat Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-/* =============================================================
-   Broadmoor Hat Co — Hat Tools Stylesheet
-   Shared styles: Hat Designer + Find Your Hat pages.
-   ============================================================= */
-
 :root {
-  --bhc-ink:       #2b1a12;
-  --bhc-ink-mid:   #5a3e2b;
-  --bhc-muted:     #7a6b5e;
-  --bhc-bg:        #f5f2ee;
+  --bhc-ink:       #1a1a1a;
+  --bhc-ink-mid:   #555555;
+  --bhc-muted:     #888888;
+  --bhc-bg:        #f0f0f0;
   --bhc-surface:   #ffffff;
-  --bhc-border:    #d6c8bb;
-  --bhc-border-lt: #ece4da;
-  --bhc-accent-lt: #f0e9e1;
+  --bhc-border:    #e0e0e0;
+  --bhc-border-lt: #ebebeb;
+  --bhc-accent-lt: #f0f0f0;
 }
 
 body { margin: 0; background: var(--bhc-bg); }
@@ -31,11 +29,13 @@ body { margin: 0; background: var(--bhc-bg); }
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 .bhc-title {
+  font-family: 'Oswald', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   margin: 0 0 14px;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 .bhc-intro {
   max-width: 62ch;
@@ -45,9 +45,9 @@ body { margin: 0; background: var(--bhc-bg); }
   font-size: 1rem;
 }
 .bhc-quiz-origin {
-  background: var(--bhc-accent-lt);
+  background: var(--bhc-surface);
   border: 1px solid var(--bhc-border);
-  border-radius: 6px;
+  border-radius: 0;
   padding: 10px 16px;
   font-size: 0.88rem;
   color: var(--bhc-ink-mid);
@@ -55,9 +55,8 @@ body { margin: 0; background: var(--bhc-bg); }
   display: block;
 }
 .bhc-preview-wrap {
-  background: var(--bhc-bg);
-  border-radius: 12px;
-  border: 1px solid var(--bhc-border-lt);
+  background: var(--bhc-surface);
+  border: 1px solid var(--bhc-border);
   padding: 16px;
   margin: 0 0 28px;
   display: flex;
@@ -70,15 +69,15 @@ body { margin: 0; background: var(--bhc-bg); }
   max-width: 480px;
   height: auto;
   display: block;
-  border-radius: 6px;
 }
 .bhc-controls { display: grid; gap: 22px; }
 .bhc-control-label {
+  font-family: 'Oswald', sans-serif;
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bhc-muted);
+  color: var(--bhc-ink);
   margin: 0 0 8px;
   display: block;
 }
@@ -115,9 +114,9 @@ body { margin: 0; background: var(--bhc-bg); }
   font-family: inherit;
   padding: 10px 36px 10px 12px;
   border: 1.5px solid var(--bhc-border);
-  border-radius: 6px;
+  border-radius: 0;
   background: var(--bhc-surface);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232b1a12' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1a1a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   color: var(--bhc-ink);
@@ -134,26 +133,23 @@ body { margin: 0; background: var(--bhc-bg); }
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 0 20px;
-  border-radius: 6px;
-  border: 1.5px solid var(--bhc-ink);
+  padding: 0 24px;
+  border-radius: 0;
+  border: 2px solid var(--bhc-ink);
   background: var(--bhc-ink);
   color: #fff;
   font-size: 0.9rem;
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-  letter-spacing: 0.01em;
-  transition: opacity 0.15s;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, color 0.15s;
 }
-.bhc-button:hover { opacity: 0.82; }
-.bhc-button-outline {
-  background: transparent;
-  color: var(--bhc-ink);
-}
-.bhc-button-outline:hover { background: var(--bhc-accent-lt); opacity: 1; }
+.bhc-button:hover { background: transparent; color: var(--bhc-ink); opacity: 1; }
+.bhc-button-outline { background: transparent; color: var(--bhc-ink); }
+.bhc-button-outline:hover { background: var(--bhc-ink); color: #fff; opacity: 1; }
 @media (max-width: 540px) {
   .bhc-section { padding: 24px 16px 52px; }
   .bhc-actions { flex-direction: column; }
@@ -213,26 +209,25 @@ body { margin: 0; background: var(--bhc-bg); }
 </div>
 
 <script>
-/**
- * Broadmoor Hat Co — Central Hat Configuration
- */
 window.BHC_HAT_CONFIG = {
   appointmentUrl:   'https://broadmoorhatco.com/pages/appointments',
   designerPagePath: '/pages/hat-designer',
   canvasSize: 1078,
   colors: [
-    { id: 'pecan',       label: 'Pecan',       hex: '#7A4B2A', tintHex: '#7a4b2a' },
-    { id: 'black',       label: 'Black',       hex: '#101010', tintHex: '#1a1a1a' },
-    { id: 'chocolate',   label: 'Chocolate',   hex: '#4B2E22', tintHex: '#5a3020' },
-    { id: 'silverbelly', label: 'Silverbelly', hex: '#C8BFAA', tintHex: null      },
-    { id: 'white',       label: 'White',       hex: '#F0ECE5', tintHex: '#f0ece5' }
+    { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
+    { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
+    { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
+    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#8C8C8C', tintHex: null, filterSuffix: 'contrast(0.5) brightness(1.25)' },
+    { id: 'white',         label: 'White',         hex: '#F8F8F8', tintHex: null, filterSuffix: 'contrast(0.35) brightness(2.8)'  }
   ],
   parts: {
     brim: [
       { id: 'brim_george',         label: 'George',         asset: 'brim_george_wide.png',    category: 'brim' },
       { id: 'brim_george_pointed', label: 'George Pointed', asset: 'brim_george_pointed.png', category: 'brim' },
       { id: 'brim_low',            label: 'Low',            asset: 'brim_low.png',            category: 'brim' },
-      { id: 'brim_flat',           label: 'Flat',           asset: 'brim_flat.png',           category: 'brim' }
+      { id: 'brim_flat',           label: 'Flat',           asset: 'brim_flat.png',           category: 'brim' },
+      { id: 'brim_rolled',         label: 'Rolled',         asset: 'brim_rolled.png',         category: 'brim' },
+      { id: 'brim_pointed',        label: 'Pointed',        asset: 'brim_pointed.png',        category: 'brim' }
     ],
     crown: [
       { id: 'crown_cattleman',      label: 'Cattleman',      asset: 'crown_wide_cattleman.png', category: 'crown' },
@@ -242,24 +237,26 @@ window.BHC_HAT_CONFIG = {
       { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown' },
       { id: 'crown_brick',          label: 'Brick',          asset: 'crown_brick.png',          category: 'crown' },
       { id: 'crown_clint',          label: 'Clint',          asset: 'crown_clint.png',          category: 'crown' },
-      { id: 'crown_square',         label: 'Square Top',     asset: 'crown_square.png',         category: 'crown' }
+      { id: 'crown_square',         label: 'Square Top',     asset: 'crown_square.png',         category: 'crown' },
+      { id: 'crown_halftaco',       label: 'Half Taco',      asset: 'crown_halftaco.png',       category: 'crown' },
+      { id: 'crown_puncher',        label: 'Puncher',        asset: 'crown_puncher.png',        category: 'crown' }
     ],
     band: [
-      { id: 'band_leather',          label: 'Leather',          asset: 'band_leather.png',          category: 'band' },
-      { id: 'band_horsehair',        label: 'Horsehair',        asset: 'band_horsehair.png',        category: 'band' },
-      { id: 'band_beaded',           label: 'Beaded',           asset: 'band_bead.png',             category: 'band' },
-      { id: 'band_horsehair_silver', label: 'Silver Horsehair', asset: 'band_horsehair_silver.png', category: 'band' },
-      { id: 'band_blue',             label: 'Blue Ribbon',      asset: 'band_blue.png',             category: 'band' },
-      { id: 'band_pink',             label: 'Pink Ribbon',      asset: 'band_pink.png',             category: 'band' }
+      { id: 'band_leather',          label: 'Leather',         asset: 'band_leather.png',          category: 'band' },
+      { id: 'band_horsehair',        label: 'Horsehair',       asset: 'band_horsehair.png',        category: 'band' },
+      { id: 'band_beaded',           label: 'Beaded',          asset: 'band_bead.png',             category: 'band' },
+      { id: 'band_horsehair_silver', label: 'Silver Horsehair',asset: 'band_horsehair_silver.png', category: 'band' },
+      { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band' },
+      { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band' }
     ]
   },
   resultKeys: ['western_formal', 'everyday_classic', 'bold_statement', 'rugged_traditional'],
   tieBreakerQuestionOrder: [1, 7, 8],
   results: {
-    western_formal:     { key: 'western_formal',     title: 'Western Formal',      body: '', build: { color: 'black',      crown: 'crown_cattleman',      brim: 'brim_george', band: 'band_leather'   } },
-    everyday_classic:   { key: 'everyday_classic',   title: 'Everyday Classic',    body: '', build: { color: 'pecan',      crown: 'crown_round_top',      brim: 'brim_george', band: 'band_horsehair' } },
-    bold_statement:     { key: 'bold_statement',     title: 'Bold Statement',      body: '', build: { color: 'silverbelly', crown: 'crown_gus',           brim: 'brim_low',    band: 'band_beaded'   } },
-    rugged_traditional: { key: 'rugged_traditional', title: 'Rugged Traditional',  body: '', build: { color: 'chocolate',  crown: 'crown_wide_cattleman', brim: 'brim_flat',   band: 'band_leather'  } }
+    western_formal:     { key: 'western_formal',     title: 'Western Formal',     body: '', build: { color: 'black',         crown: 'crown_cattleman',      brim: 'brim_george', band: 'band_leather'   } },
+    everyday_classic:   { key: 'everyday_classic',   title: 'Everyday Classic',   body: '', build: { color: 'pecan',         crown: 'crown_round_top',      brim: 'brim_george', band: 'band_horsehair' } },
+    bold_statement:     { key: 'bold_statement',     title: 'Bold Statement',     body: '', build: { color: 'light_charcoal', crown: 'crown_gus',           brim: 'brim_low',    band: 'band_beaded'   } },
+    rugged_traditional: { key: 'rugged_traditional', title: 'Rugged Traditional', body: '', build: { color: 'chocolate',     crown: 'crown_wide_cattleman', brim: 'brim_flat',   band: 'band_leather'  } }
   },
   quiz: []
 };
@@ -274,7 +271,7 @@ window.BHC_HAT_CONFIG = {
 
   const { colors, parts, results, appointmentUrl } = window.BHC_HAT_CONFIG;
 
-  const rawBase  = root.dataset.assetBase || '';
+  const rawBase   = root.dataset.assetBase || '';
   const assetBase = rawBase.endsWith('/') ? rawBase : rawBase + '/';
 
   const canvas = root.querySelector('#bhc-hat-preview');
@@ -304,16 +301,32 @@ window.BHC_HAT_CONFIG = {
   const state = resolveInitialState();
 
   function resolveInitialState() {
-    const p         = new URLSearchParams(window.location.search);
+    let p = new URLSearchParams(window.location.search);
+    if (!p.get('origin') && window.location.hash) {
+      p = new URLSearchParams(window.location.hash.slice(1));
+    }
     const origin    = p.get('origin');
     const resultKey = p.get('result');
     const def       = results.western_formal.build;
+
     if (origin === 'quiz' && resultKey && results[resultKey]) {
       const base = results[resultKey].build;
-      return { brim: p.get('brim') || base.brim, crown: p.get('crown') || base.crown, band: p.get('band') || base.band, color: p.get('color') || base.color, origin: 'quiz', result: resultKey };
+      return {
+        brim:   p.get('brim')  || base.brim,
+        crown:  p.get('crown') || base.crown,
+        band:   p.get('band')  || base.band,
+        color:  p.get('color') || base.color,
+        origin: 'quiz', result: resultKey
+      };
     }
     if (p.get('brim')) {
-      return { brim: p.get('brim') || def.brim, crown: p.get('crown') || def.crown, band: p.get('band') || def.band, color: p.get('color') || def.color, origin: 'direct', result: resultKey || 'western_formal' };
+      return {
+        brim:   p.get('brim')  || def.brim,
+        crown:  p.get('crown') || def.crown,
+        band:   p.get('band')  || def.band,
+        color:  p.get('color') || def.color,
+        origin: 'direct', result: resultKey || 'western_formal'
+      };
     }
     return { ...def, origin: 'direct', result: 'western_formal' };
   }
@@ -346,7 +359,11 @@ window.BHC_HAT_CONFIG = {
     if (!sel) return;
     sel.innerHTML = options.map(o => '<option value="' + o.id + '">' + o.label + '</option>').join('');
     sel.value = state[kind];
-    sel.addEventListener('change', () => { state[kind] = sel.value; renderPreview(); updateShareUrl(); });
+    sel.addEventListener('change', () => {
+      state[kind] = sel.value;
+      renderPreview();
+      updateShareUrl();
+    });
   }
 
   function mountColors() {
@@ -356,7 +373,12 @@ window.BHC_HAT_CONFIG = {
       '<button class="bhc-color-dot" data-color-id="' + c.id + '" title="' + c.label + '" style="background:' + c.hex + '" aria-label="' + c.label + '"></button>'
     ).join('');
     row.querySelectorAll('[data-color-id]').forEach(btn => {
-      btn.addEventListener('click', () => { state.color = btn.dataset.colorId; syncUiFromState(); renderPreview(); updateShareUrl(); });
+      btn.addEventListener('click', () => {
+        state.color = btn.dataset.colorId;
+        syncUiFromState();
+        renderPreview();
+        updateShareUrl();
+      });
     });
   }
 
@@ -367,8 +389,15 @@ window.BHC_HAT_CONFIG = {
     });
     const row  = root.querySelector('[data-color-options]');
     const text = root.querySelector('[data-selected-color]');
-    if (row) row.querySelectorAll('[data-color-id]').forEach(btn => btn.classList.toggle('is-active', btn.dataset.colorId === state.color));
-    if (text) { const c = colors.find(x => x.id === state.color); text.textContent = 'Selected color: ' + (c ? c.label : state.color); }
+    if (row) {
+      row.querySelectorAll('[data-color-id]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.colorId === state.color);
+      });
+    }
+    if (text) {
+      const c = colors.find(x => x.id === state.color);
+      text.textContent = 'Selected color: ' + (c ? c.label : state.color);
+    }
   }
 
   function renderPreview() {
@@ -376,11 +405,17 @@ window.BHC_HAT_CONFIG = {
     const brimPart  = parts.brim.find(p => p.id === state.brim)   || parts.brim[0];
     const crownPart = parts.crown.find(p => p.id === state.crown) || parts.crown[0];
     const bandPart  = parts.band.find(p => p.id === state.band)   || parts.band[0];
-    Promise.all([loadImage(brimPart.asset), loadImage(crownPart.asset), loadImage(bandPart.asset)]).then(([brimImg, crownImg, bandImg]) => {
+
+    Promise.all([
+      loadImage(brimPart.asset),
+      loadImage(crownPart.asset),
+      loadImage(bandPart.asset)
+    ]).then(([brimImg, crownImg, bandImg]) => {
       ctx.clearRect(0, 0, W, H);
       if (brimImg)  drawTinted(ctx, brimImg,  colorObj);
       if (crownImg) drawTinted(ctx, crownImg, colorObj);
       if (bandImg)  ctx.drawImage(bandImg, 0, 0, W, H);
+      if (!brimImg && !crownImg && !bandImg) drawPlaceholder(brimPart, crownPart, bandPart);
     });
   }
 
@@ -388,9 +423,11 @@ window.BHC_HAT_CONFIG = {
     const off  = document.createElement('canvas');
     off.width  = W; off.height = H;
     const oc   = off.getContext('2d');
-    oc.filter = 'grayscale(1)';
+
+    oc.filter = 'grayscale(1)' + (colorObj.filterSuffix ? ' ' + colorObj.filterSuffix : '');
     oc.drawImage(img, 0, 0, W, H);
     oc.filter = 'none';
+
     if (colorObj.tintHex) {
       oc.globalCompositeOperation = 'multiply';
       oc.fillStyle = colorObj.tintHex;
@@ -398,8 +435,21 @@ window.BHC_HAT_CONFIG = {
       oc.globalCompositeOperation = 'destination-in';
       oc.drawImage(img, 0, 0, W, H);
     }
+
     targetCtx.globalCompositeOperation = 'source-over';
     targetCtx.drawImage(off, 0, 0);
+  }
+
+  function drawPlaceholder(brimPart, crownPart, bandPart) {
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#888';
+    ctx.font = 'bold 36px sans-serif';
+    ctx.fillText('Loading assets\u2026', 60, 260);
+    ctx.font = '28px sans-serif';
+    ctx.fillText('Brim: '  + brimPart.label,  60, 380);
+    ctx.fillText('Crown: ' + crownPart.label, 60, 430);
+    ctx.fillText('Band: '  + bandPart.label,  60, 480);
   }
 
   function exportPng() {
@@ -431,15 +481,23 @@ window.BHC_HAT_CONFIG = {
     if (copyBtn) {
       copyBtn.addEventListener('click', async () => {
         const url = window.location.origin + window.location.pathname + '?' + encodeState();
-        try { await navigator.clipboard.writeText(url); const orig = copyBtn.textContent; copyBtn.textContent = 'Link Copied!'; setTimeout(() => { copyBtn.textContent = orig; }, 2200); }
-        catch (_) { window.prompt('Copy this link:', url); }
+        try {
+          await navigator.clipboard.writeText(url);
+          const orig = copyBtn.textContent;
+          copyBtn.textContent = 'Link Copied!';
+          setTimeout(() => { copyBtn.textContent = orig; }, 2200);
+        } catch (_) { window.prompt('Copy this link:', url); }
       });
     }
     if (pngBtn) pngBtn.addEventListener('click', exportPng);
   }
 
   function encodeState() {
-    return new URLSearchParams({ origin: state.origin, result: state.result, color: state.color, brim: state.brim, crown: state.crown, band: state.band }).toString();
+    return new URLSearchParams({
+      origin: state.origin, result: state.result,
+      color:  state.color,  brim:   state.brim,
+      crown:  state.crown,  band:   state.band
+    }).toString();
   }
   function updateShareUrl() {
     history.replaceState({}, '', window.location.pathname + '?' + encodeState());
