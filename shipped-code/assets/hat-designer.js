@@ -20,6 +20,7 @@
   const cache = {};
 
   function loadImage(asset) {
+    if (!asset) return Promise.resolve(null);
     if (cache[asset] instanceof HTMLImageElement) return Promise.resolve(cache[asset]);
     if (cache[asset] instanceof Promise)          return cache[asset];
     cache[asset] = new Promise(resolve => {
@@ -34,7 +35,9 @@
 
   // Preload all assets for snappy switching
   function preloadAll() {
-    [...parts.brim, ...parts.crown, ...parts.band].forEach(p => loadImage(p.asset));
+    [...parts.brim, ...parts.crown, ...parts.accessory, ...parts.band]
+      .filter(p => p.asset)
+      .forEach(p => loadImage(p.asset));
   }
 
   // ── State ────────────────────────────────────────────────────
@@ -49,23 +52,25 @@
     if (origin === 'quiz' && resultKey && results[resultKey]) {
       const base = results[resultKey].build;
       return {
-        brim:   p.get('brim')  || base.brim,
-        crown:  p.get('crown') || base.crown,
-        band:   p.get('band')  || base.band,
-        color:  p.get('color') || base.color,
+        brim:      p.get('brim')      || base.brim,
+        crown:     p.get('crown')     || base.crown,
+        band:      p.get('band')      || base.band,
+        accessory: p.get('accessory') || base.accessory || 'accessory_none',
+        color:     p.get('color')     || base.color,
         origin: 'quiz', result: resultKey
       };
     }
     if (p.get('brim')) {
       return {
-        brim:   p.get('brim')  || def.brim,
-        crown:  p.get('crown') || def.crown,
-        band:   p.get('band')  || def.band,
-        color:  p.get('color') || def.color,
+        brim:      p.get('brim')      || def.brim,
+        crown:     p.get('crown')     || def.crown,
+        band:      p.get('band')      || def.band,
+        accessory: p.get('accessory') || def.accessory || 'accessory_none',
+        color:     p.get('color')     || def.color,
         origin: 'direct', result: resultKey || 'western_formal'
       };
     }
-    return { ...def, origin: 'direct', result: 'western_formal' };
+    return { ...def, accessory: def.accessory || 'accessory_none', origin: 'direct', result: 'western_formal' };
   }
 
   // ── Boot ─────────────────────────────────────────────────────
@@ -74,9 +79,10 @@
   const bookLink = root.querySelector('[data-book-appointment]');
   if (bookLink) bookLink.href = appointmentUrl;
 
-  mountSelect('brim',  parts.brim);
-  mountSelect('crown', parts.crown);
-  mountSelect('band',  parts.band);
+  mountSelect('brim',      parts.brim);
+  mountSelect('crown',     parts.crown);
+  mountSelect('accessory', parts.accessory);
+  mountSelect('band',      parts.band);
   mountColors();
   syncUiFromState();
   setupQuizOriginMessage();
@@ -124,7 +130,7 @@
   }
 
   function syncUiFromState() {
-    ['brim', 'crown', 'band'].forEach(k => {
+    ['brim', 'crown', 'accessory', 'band'].forEach(k => {
       const sel = root.querySelector('[data-part-select="' + k + '"]');
       if (sel) sel.value = state[k];
     });
@@ -143,24 +149,28 @@
 
   // ── Canvas rendering ─────────────────────────────────────────
   function renderPreview() {
-    const colorObj  = colors.find(c => c.id === state.color) || colors[0];
-    const brimPart  = parts.brim.find(p => p.id === state.brim)   || parts.brim[0];
-    const crownPart = parts.crown.find(p => p.id === state.crown) || parts.crown[0];
-    const bandPart  = parts.band.find(p => p.id === state.band)   || parts.band[0];
+    const colorObj      = colors.find(c => c.id === state.color)               || colors[0];
+    const brimPart      = parts.brim.find(p => p.id === state.brim)            || parts.brim[0];
+    const crownPart     = parts.crown.find(p => p.id === state.crown)          || parts.crown[0];
+    const accessoryPart = parts.accessory.find(p => p.id === state.accessory)  || parts.accessory[0];
+    const bandPart      = parts.band.find(p => p.id === state.band)            || parts.band[0];
 
     Promise.all([
       loadImage(brimPart.asset),
       loadImage(crownPart.asset),
+      loadImage(accessoryPart.asset),
       loadImage(bandPart.asset)
-    ]).then(([brimImg, crownImg, bandImg]) => {
+    ]).then(([brimImg, crownImg, accessoryImg, bandImg]) => {
       // Composite all hat layers onto a single offscreen canvas so the
       // drop-shadow is cast by the whole hat shape, not each layer separately.
       const comp  = document.createElement('canvas');
       comp.width  = W; comp.height = H;
       const cc    = comp.getContext('2d');
-      // Layer order per spec §5.3: brim (bottom) → crown → band (top)
-      if (brimImg)  drawTinted(cc, brimImg,  colorObj, brimPart);
-      if (crownImg) drawTinted(cc, crownImg, colorObj, crownPart);
+      // Layer order: brim → crown → accessory → band
+      if (brimImg)      drawTinted(cc, brimImg,  colorObj, brimPart);
+      if (crownImg)     drawTinted(cc, crownImg, colorObj, crownPart);
+      // Accessory: no colour filtering, drawn raw aligned to top-left
+      if (accessoryImg) cc.drawImage(accessoryImg, 0, 0, W, H);
       if (bandImg) {
         if (bandPart.edgeBlur) { cc.filter = 'blur(' + bandPart.edgeBlur + 'px)'; }
         cc.drawImage(bandImg, 0, 0, W, H);
@@ -285,9 +295,10 @@
   // ── URL state ───────────────────────────────────────────────
   function encodeState() {
     return new URLSearchParams({
-      origin: state.origin, result: state.result,
-      color:  state.color,  brim:   state.brim,
-      crown:  state.crown,  band:   state.band
+      origin:    state.origin, result:    state.result,
+      color:     state.color,  brim:      state.brim,
+      crown:     state.crown,  accessory: state.accessory,
+      band:      state.band
     }).toString();
   }
   function updateShareUrl() {

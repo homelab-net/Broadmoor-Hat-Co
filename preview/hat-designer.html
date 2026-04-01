@@ -188,6 +188,10 @@ body { margin: 0; background: var(--bhc-bg); }
         <select data-part-select="crown"></select>
       </label>
       <label>
+        <span class="bhc-control-label">Accessory</span>
+        <select data-part-select="accessory"></select>
+      </label>
+      <label>
         <span class="bhc-control-label">Brim</span>
         <select data-part-select="brim"></select>
       </label>
@@ -247,15 +251,18 @@ window.BHC_HAT_CONFIG = {
       { id: 'band_horsehair_silver', label: 'Silver Horsehair',asset: 'band_horsehair_silver.png', category: 'band' },
       { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band', edgeBlur: 1.5 },
       { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band', edgeBlur: 1.5 }
+    ],
+    accessory: [
+      { id: 'accessory_none', label: 'None', asset: null, category: 'accessory' }
     ]
   },
   resultKeys: ['western_formal', 'everyday_classic', 'bold_statement', 'rugged_traditional'],
   tieBreakerQuestionOrder: [1, 7, 8],
   results: {
-    western_formal:     { key: 'western_formal',     title: 'Western Formal',     body: '', build: { color: 'black',         crown: 'crown_cattleman',      brim: 'brim_george', band: 'band_leather'   } },
-    everyday_classic:   { key: 'everyday_classic',   title: 'Everyday Classic',   body: '', build: { color: 'pecan',         crown: 'crown_round_top',      brim: 'brim_george', band: 'band_horsehair' } },
-    bold_statement:     { key: 'bold_statement',     title: 'Bold Statement',     body: '', build: { color: 'light_charcoal', crown: 'crown_gus',           brim: 'brim_low',    band: 'band_beaded'   } },
-    rugged_traditional: { key: 'rugged_traditional', title: 'Rugged Traditional', body: '', build: { color: 'chocolate',     crown: 'crown_wide_cattleman', brim: 'brim_flat',   band: 'band_leather'  } }
+    western_formal:     { key: 'western_formal',     title: 'Western Formal',     body: '', build: { color: 'black',         crown: 'crown_cattleman',      brim: 'brim_george', band: 'band_leather',   accessory: 'accessory_none' } },
+    everyday_classic:   { key: 'everyday_classic',   title: 'Everyday Classic',   body: '', build: { color: 'pecan',         crown: 'crown_round_top',      brim: 'brim_george', band: 'band_horsehair', accessory: 'accessory_none' } },
+    bold_statement:     { key: 'bold_statement',     title: 'Bold Statement',     body: '', build: { color: 'light_charcoal', crown: 'crown_gus',           brim: 'brim_low',    band: 'band_beaded',   accessory: 'accessory_none' } },
+    rugged_traditional: { key: 'rugged_traditional', title: 'Rugged Traditional', body: '', build: { color: 'chocolate',     crown: 'crown_wide_cattleman', brim: 'brim_flat',   band: 'band_leather',  accessory: 'accessory_none' } }
   },
   quiz: []
 };
@@ -281,6 +288,7 @@ window.BHC_HAT_CONFIG = {
   const cache = {};
 
   function loadImage(asset) {
+    if (!asset) return Promise.resolve(null);
     if (cache[asset] instanceof HTMLImageElement) return Promise.resolve(cache[asset]);
     if (cache[asset] instanceof Promise)          return cache[asset];
     cache[asset] = new Promise(resolve => {
@@ -294,7 +302,9 @@ window.BHC_HAT_CONFIG = {
   }
 
   function preloadAll() {
-    [...parts.brim, ...parts.crown, ...parts.band].forEach(p => loadImage(p.asset));
+    [...parts.brim, ...parts.crown, ...parts.accessory, ...parts.band]
+      .filter(p => p.asset)
+      .forEach(p => loadImage(p.asset));
   }
 
   const state = resolveInitialState();
@@ -311,23 +321,25 @@ window.BHC_HAT_CONFIG = {
     if (origin === 'quiz' && resultKey && results[resultKey]) {
       const base = results[resultKey].build;
       return {
-        brim:   p.get('brim')  || base.brim,
-        crown:  p.get('crown') || base.crown,
-        band:   p.get('band')  || base.band,
-        color:  p.get('color') || base.color,
+        brim:      p.get('brim')      || base.brim,
+        crown:     p.get('crown')     || base.crown,
+        band:      p.get('band')      || base.band,
+        accessory: p.get('accessory') || base.accessory || 'accessory_none',
+        color:     p.get('color')     || base.color,
         origin: 'quiz', result: resultKey
       };
     }
     if (p.get('brim')) {
       return {
-        brim:   p.get('brim')  || def.brim,
-        crown:  p.get('crown') || def.crown,
-        band:   p.get('band')  || def.band,
-        color:  p.get('color') || def.color,
+        brim:      p.get('brim')      || def.brim,
+        crown:     p.get('crown')     || def.crown,
+        band:      p.get('band')      || def.band,
+        accessory: p.get('accessory') || def.accessory || 'accessory_none',
+        color:     p.get('color')     || def.color,
         origin: 'direct', result: resultKey || 'western_formal'
       };
     }
-    return { ...def, origin: 'direct', result: 'western_formal' };
+    return { ...def, accessory: def.accessory || 'accessory_none', origin: 'direct', result: 'western_formal' };
   }
 
   preloadAll();
@@ -335,9 +347,10 @@ window.BHC_HAT_CONFIG = {
   const bookLink = root.querySelector('[data-book-appointment]');
   if (bookLink) bookLink.href = appointmentUrl;
 
-  mountSelect('brim',  parts.brim);
-  mountSelect('crown', parts.crown);
-  mountSelect('band',  parts.band);
+  mountSelect('brim',      parts.brim);
+  mountSelect('crown',     parts.crown);
+  mountSelect('accessory', parts.accessory);
+  mountSelect('band',      parts.band);
   mountColors();
   syncUiFromState();
   setupQuizOriginMessage();
@@ -382,7 +395,7 @@ window.BHC_HAT_CONFIG = {
   }
 
   function syncUiFromState() {
-    ['brim', 'crown', 'band'].forEach(k => {
+    ['brim', 'crown', 'accessory', 'band'].forEach(k => {
       const sel = root.querySelector('[data-part-select="' + k + '"]');
       if (sel) sel.value = state[k];
     });
@@ -405,18 +418,24 @@ window.BHC_HAT_CONFIG = {
     const crownPart = parts.crown.find(p => p.id === state.crown) || parts.crown[0];
     const bandPart  = parts.band.find(p => p.id === state.band)   || parts.band[0];
 
+    const accessoryPart = parts.accessory.find(p => p.id === state.accessory) || parts.accessory[0];
+
     Promise.all([
       loadImage(brimPart.asset),
       loadImage(crownPart.asset),
+      loadImage(accessoryPart.asset),
       loadImage(bandPart.asset)
-    ]).then(([brimImg, crownImg, bandImg]) => {
+    ]).then(([brimImg, crownImg, accessoryImg, bandImg]) => {
       // Composite all hat layers onto a single offscreen canvas so the
       // drop-shadow is cast by the whole hat shape, not each layer separately.
       const comp  = document.createElement('canvas');
       comp.width  = W; comp.height = H;
       const cc    = comp.getContext('2d');
-      if (brimImg)  drawTinted(cc, brimImg,  colorObj, brimPart);
-      if (crownImg) drawTinted(cc, crownImg, colorObj, crownPart);
+      // Layer order: brim → crown → accessory → band
+      if (brimImg)      drawTinted(cc, brimImg,  colorObj, brimPart);
+      if (crownImg)     drawTinted(cc, crownImg, colorObj, crownPart);
+      // Accessory: no colour filtering, drawn raw aligned to top-left
+      if (accessoryImg) cc.drawImage(accessoryImg, 0, 0, W, H);
       if (bandImg) {
         if (bandPart.edgeBlur) { cc.filter = 'blur(' + bandPart.edgeBlur + 'px)'; }
         cc.drawImage(bandImg, 0, 0, W, H);
@@ -522,9 +541,10 @@ window.BHC_HAT_CONFIG = {
 
   function encodeState() {
     return new URLSearchParams({
-      origin: state.origin, result: state.result,
-      color:  state.color,  brim:   state.brim,
-      crown:  state.crown,  band:   state.band
+      origin:    state.origin, result:    state.result,
+      color:     state.color,  brim:      state.brim,
+      crown:     state.crown,  accessory: state.accessory,
+      band:      state.band
     }).toString();
   }
   function updateShareUrl() {

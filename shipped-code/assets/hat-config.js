@@ -59,6 +59,9 @@ window.BHC_HAT_CONFIG = {
       { id: 'band_horsehair_silver', label: 'Silver Horsehair',asset: 'band_horsehair_silver.png', category: 'band' },
       { id: 'band_blue',             label: 'Blue Ribbon',     asset: 'band_blue.png',             category: 'band', edgeBlur: 1.5 },
       { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band', edgeBlur: 1.5 }
+    ],
+    accessory: [
+      { id: 'accessory_none', label: 'None', asset: null, category: 'accessory' }
     ]
   },
 
@@ -70,25 +73,25 @@ window.BHC_HAT_CONFIG = {
       key:   'western_formal',
       title: 'Western Formal',
       body:  'Your answers pointed toward a polished, elevated western style with clean lines and a timeless presence. This result is designed for weddings, formal events, and dress-forward occasions where you want your hat to feel refined, intentional, and classic.',
-      build: { color: 'black', crown: 'crown_cattleman', brim: 'brim_george', band: 'band_leather' }
+      build: { color: 'black', crown: 'crown_cattleman', brim: 'brim_george', band: 'band_leather', accessory: 'accessory_none' }
     },
     everyday_classic: {
       key:   'everyday_classic',
       title: 'Everyday Classic',
       body:  'Your answers leaned toward a versatile western style that feels natural in almost any setting. This result is built around balance, wearability, and timeless character, giving you a custom hat that feels easy to wear while still distinctly western.',
-      build: { color: 'pecan', crown: 'crown_round_top', brim: 'brim_george', band: 'band_horsehair' }
+      build: { color: 'pecan', crown: 'crown_round_top', brim: 'brim_george', band: 'band_horsehair', accessory: 'accessory_none' }
     },
     bold_statement: {
       key:   'bold_statement',
       title: 'Bold Statement',
       body:  'Your answers showed a preference for individuality, confidence, and a stronger visual presence. This result starts with a more distinctive western profile that stands out in a crowd while still feeling grounded in premium craftsmanship.',
-      build: { color: 'light_charcoal', crown: 'crown_gus', brim: 'brim_low', band: 'band_beaded' }
+      build: { color: 'light_charcoal', crown: 'crown_gus', brim: 'brim_low', band: 'band_beaded', accessory: 'accessory_none' }
     },
     rugged_traditional: {
       key:   'rugged_traditional',
       title: 'Rugged Traditional',
       body:  'Your answers aligned with a heritage-driven western style rooted in authenticity, grit, and tradition. This result reflects a stronger traditional character with a practical, grounded look inspired by classic western wear.',
-      build: { color: 'chocolate', crown: 'crown_wide_cattleman', brim: 'brim_flat', band: 'band_leather' }
+      build: { color: 'chocolate', crown: 'crown_wide_cattleman', brim: 'brim_flat', band: 'band_leather', accessory: 'accessory_none' }
     }
   },
 
