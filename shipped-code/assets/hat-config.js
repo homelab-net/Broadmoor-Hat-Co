@@ -22,8 +22,8 @@ window.BHC_HAT_CONFIG = {
     { id: 'pecan',         label: 'Pecan',         hex: '#7A4B2A', tintHex: '#7a4b2a' },
     { id: 'black',         label: 'Black',         hex: '#101010', tintHex: '#585858' },
     { id: 'chocolate',     label: 'Chocolate',     hex: '#4B2E22', tintHex: '#5a3020' },
-    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#B3B3B3', tintHex: null, filterSuffix: 'brightness(1.5)'              },
-    { id: 'white',         label: 'White',         hex: '#FFFFFF', tintHex: null, filterSuffix: 'contrast(0.75) brightness(3.5)'  }
+    { id: 'light_charcoal',label: 'Light Charcoal',hex: '#B3B3B3', tintHex: '#b3b3b3' },
+    { id: 'white',         label: 'White',         hex: '#FFFFFF', tintHex: null, filterSuffix: 'contrast(0.8) brightness(5)'     }
   ],
 
   /* ── Part registry ─────────────────────────────────────────────────
@@ -44,7 +44,6 @@ window.BHC_HAT_CONFIG = {
     ],
     crown: [
       { id: 'crown_cattleman',      label: 'Cattleman',      asset: 'crown_wide_cattleman.png', category: 'crown' },
-      { id: 'crown_wide_cattleman', label: 'Wide Cattleman', asset: 'crown_wide_cattleman.png', category: 'crown' },
       { id: 'crown_round_top',      label: 'Round Top',      asset: 'crown_round.png',          category: 'crown' },
       { id: 'crown_gus',            label: 'Gus',            asset: 'crown_gus.png',            category: 'crown' },
       { id: 'crown_open',           label: 'Open',           asset: 'crown_open.png',           category: 'crown' },
