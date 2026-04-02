@@ -61,7 +61,14 @@ window.BHC_HAT_CONFIG = {
       { id: 'band_pink',             label: 'Pink Ribbon',     asset: 'band_pink.png',             category: 'band', edgeBlur: 1.5 }
     ],
     accessory: [
-      { id: 'accessory_none', label: 'None', asset: null, category: 'accessory' }
+      { id: 'accessory_none',      label: 'None',       asset: null,                          category: 'accessory' },
+      { id: 'accessory_brimbrand', label: 'Brim Brand', asset: 'accessory_brimbrand.png',     category: 'accessory' },
+      { id: 'accessory_cross',     label: 'Cross',      asset: 'accessory_cross.png',         category: 'accessory' },
+      { id: 'accessory_crownband', label: 'Crown Band', asset: 'accessory_crownband.png',     category: 'accessory' },
+      { id: 'accessory_feather',   label: 'Feather',    asset: 'accessory_feather.png',       category: 'accessory' },
+      { id: 'accessory_flowers',   label: 'Flowers',    asset: 'accessory_flowers.png',       category: 'accessory' },
+      { id: 'accessory_pin',       label: 'Pin',        asset: 'accessory_pin.png',           category: 'accessory' },
+      { id: 'accessory_shotgun',   label: 'Shotgun',    asset: 'accessory_shotgun.png',       category: 'accessory' }
     ]
   },
 
